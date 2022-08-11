@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="<!--{$APP_CSS}-->owl.carousel.min.css">
     <link rel="stylesheet" href="<!--{$APP_CSS}-->owl.theme.default.min.css">
     <link rel="stylesheet" href="<!--{$APP_CSS}-->templatemo-medic-care.css">
+    
 </head>
 
 <body>

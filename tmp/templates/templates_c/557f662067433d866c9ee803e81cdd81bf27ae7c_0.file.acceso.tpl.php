@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-08-10 05:17:01
+/* Smarty version 4.1.1, created on 2022-08-11 01:01:43
   from 'C:\laragon\www\PoliMedic\app\templates\acceso\acceso.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_62f33f4df33439_07548976',
+  'unifunc' => 'content_62f454f7576d30_92221643',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '557f662067433d866c9ee803e81cdd81bf27ae7c' => 
     array (
       0 => 'C:\\laragon\\www\\PoliMedic\\app\\templates\\acceso\\acceso.tpl',
-      1 => 1660108621,
+      1 => 1660177401,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62f33f4df33439_07548976 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62f454f7576d30_92221643 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 
@@ -40,6 +40,7 @@ owl.carousel.min.css">
 owl.theme.default.min.css">
     <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['APP_CSS']->value;?>
 templatemo-medic-care.css">
+    
 </head>
 
 <body>
