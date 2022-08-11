@@ -63,7 +63,7 @@
                     <div id="myCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="<!--{$bannerImg2}-->" class="img-fluid" alt="">
+                                <img src="<!--{$bannerImg1}-->" class="img-fluid" alt="">
                             </div>
     
                             <div class="carousel-item">
