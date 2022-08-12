@@ -30,6 +30,10 @@ if (!defined('TMP_DIR')) {
     define('TMP_DIR',       $RUTA_PROYECTO . '/tmp/');
 }
 
+if (!defined('PHPMAILER_DIR')) {
+    define('PHPMAILER_DIR', $RUTA_PROYECTO.'/include/inc_php/PHPMailer_v5.2.23/');
+}
+
 if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR',        $RUTA_PROYECTO . '/include/inc_php/smarty-4.1.1/libs/');
     define('TEMPLATES_DIR',     $RUTA_PROYECTO . '/app/templates/');
@@ -38,7 +42,6 @@ if (!defined('SMARTY_DIR')) {
     define('COMPILE_DIR',       $RUTA_PROYECTO . '/tmp/templates/templates_c/');
     define('LEFT_DELIMITER',    '<!--{');
     define('RIGHT_DELIMITER',   '}-->');
-    
 }
 
 
@@ -53,3 +56,18 @@ $smarty->cache_dir = CACHE_DIR;
 $smarty->config_dir = CONFIGS_DIR;
 $smarty->left_delimiter = LEFT_DELIMITER;
 $smarty->right_delimiter = RIGHT_DELIMITER;
+
+
+/******************************************************************************/
+/******************* Configuracion De Correos Electrónicos ********************/
+/******************************************************************************/
+$SMTPDebug = 0;
+$SMTPAuth = true;
+$SMTPSecure = 'tls';
+$Host = 'smtp.gmail.com';
+$Port = 587;
+$Username= 'ugcpruebas@gmail.com';
+$Password = 'secret';
+$From  = 'no-reply@polimedic.com';
+$FromName  = utf8_encode('PoliMedic | Gestiona tu Salud');                  
+
