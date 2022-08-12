@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-08-10 04:52:50
+/* Smarty version 4.1.1, created on 2022-08-12 04:50:26
   from 'C:\laragon\www\PoliMedic\app\templates\acceso\base_acesso.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_62f339a2af8ea8_48576170',
+  'unifunc' => 'content_62f5dc123f0711_28918284',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b31261713c70c6d2e0530f3d0a9addab6a0f96fd' => 
     array (
       0 => 'C:\\laragon\\www\\PoliMedic\\app\\templates\\acceso\\base_acesso.tpl',
-      1 => 1660107168,
+      1 => 1660279787,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,24 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62f339a2af8ea8_48576170 (Smarty_Internal_Template $_smarty_tpl) {
-?><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<?php echo '<script'; ?>
- src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"><?php echo '</script'; ?>
->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+function content_62f5dc123f0711_28918284 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+        PoliMedic | Gestiona tu Salud
+    </title>
+    <link rel="icon" href="<?php echo $_smarty_tpl->tpl_vars['fav']->value;?>
+" type="image/x-icon">
+    <meta name="description" content="PoliMedic" />
+    <meta name="author" content="SubGrupo-07" />
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- CSS -->
@@ -38,7 +50,9 @@ function content_62f339a2af8ea8_48576170 (Smarty_Internal_Template $_smarty_tpl)
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
-
+<?php echo '<script'; ?>
+ src="//cdn.jsdelivr.net/npm/sweetalert2@11"><?php echo '</script'; ?>
+>
 <?php echo '<script'; ?>
  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
@@ -77,5 +91,7 @@ function content_62f339a2af8ea8_48576170 (Smarty_Internal_Template $_smarty_tpl)
 >
 <?php echo '<script'; ?>
  src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"><?php echo '</script'; ?>
-><?php }
+>
+
+</head><?php }
 }

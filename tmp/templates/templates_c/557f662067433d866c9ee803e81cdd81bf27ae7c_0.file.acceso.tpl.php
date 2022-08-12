@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-08-12 01:52:06
+/* Smarty version 4.1.1, created on 2022-08-12 02:42:27
   from 'C:\laragon\www\PoliMedic\app\templates\acceso\acceso.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_62f5b2466c6711_74494163',
+  'unifunc' => 'content_62f5be1359f8a9_44622267',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '557f662067433d866c9ee803e81cdd81bf27ae7c' => 
     array (
       0 => 'C:\\laragon\\www\\PoliMedic\\app\\templates\\acceso\\acceso.tpl',
-      1 => 1660269124,
+      1 => 1660272015,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62f5b2466c6711_74494163 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62f5be1359f8a9_44622267 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 
@@ -47,48 +47,6 @@ templatemo-medic-care.css?v=<?php echo $_smarty_tpl->tpl_vars['date']->value;?>
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
-        <div class="container">
-            <a class="navbar-brand mx-auto d-lg-none" href="index.html">
-                MediFlow
-                <strong class="d-block">Turnos médicos</strong>
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/#about">Inicio</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#reviews">Nuestros Servicios</a>
-                    </li>
-
-                    <a class="navbar-brand d-none d-lg-block" href="/">
-                        <span class="title-nav">POLIMEDIC</span>
-                        <strong class="d-block">Gestiona tu Salud</strong>
-                    </a>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#contact">Contacto</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/login">Iniciar sesión</a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-    </nav>
     <section class="hero" id="hero">
         <div class="container">
             <div class="row">
@@ -248,7 +206,7 @@ templatemo-medic-care.css?v=<?php echo $_smarty_tpl->tpl_vars['date']->value;?>
         const buttonContact = document.getElementById("submit-button");
 
         buttonContact.onclick = function() {
-            window.open('mailto:contactoMediFlow@mediflow.com?subject=subject&body=body');
+            window.open('mailto:luisomg111@gmail.com?subject=subject&body=body');
         };
     <?php echo '</script'; ?>
 >

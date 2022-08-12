@@ -39,4 +39,6 @@ $smarty->assign('date'              	, $date);
 
 
 $smarty->display('acceso/base_acesso.tpl');
+$smarty->display('acceso/header.tpl');
 $smarty->display('acceso/acceso.tpl');
+$smarty->display('footer.tpl');
