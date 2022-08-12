@@ -1004,3 +1004,37 @@ strong {
 .testimonials-margin {
   margin-top: -19px
 }
+
+.cuadrarTab {
+  display: flex;
+  align-items: center;
+  margin-bottom: 45px;
+}
+
+.margLadoIsqui {
+  width: 200px;
+  margin-left: 35px;
+  font-size: 23px;
+}
+
+.margLadoDere {
+  width: 200px;
+  margin-right: 35px;
+  font-size: 23px;
+}
+
+.cuadrarTab2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 45px;
+}
+
+.margTopBaja {
+  margin-top: 130px;
+}
+
+.margLadoIsqui2 {
+  width: 250px;
+  margin-left: 35px;
+  font-size: 23px;
+}

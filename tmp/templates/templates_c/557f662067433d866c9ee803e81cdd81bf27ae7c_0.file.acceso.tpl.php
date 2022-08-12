@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-08-11 01:01:43
+/* Smarty version 4.1.1, created on 2022-08-12 01:52:06
   from 'C:\laragon\www\PoliMedic\app\templates\acceso\acceso.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_62f454f7576d30_92221643',
+  'unifunc' => 'content_62f5b2466c6711_74494163',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '557f662067433d866c9ee803e81cdd81bf27ae7c' => 
     array (
       0 => 'C:\\laragon\\www\\PoliMedic\\app\\templates\\acceso\\acceso.tpl',
-      1 => 1660177401,
+      1 => 1660269124,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62f454f7576d30_92221643 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62f5b2466c6711_74494163 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 
@@ -28,8 +28,10 @@ function content_62f454f7576d30_92221643 (Smarty_Internal_Template $_smarty_tpl)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title><?php echo $_smarty_tpl->tpl_vars['titulo']->value;?>
-</title>
+    <title>
+        <?php echo $_smarty_tpl->tpl_vars['titulo']->value;?>
+
+    </title>
     <link rel="icon" href="<?php echo $_smarty_tpl->tpl_vars['fav']->value;?>
 " type="image/x-icon">
     <meta name="description" content="PoliMedic" />
@@ -39,11 +41,13 @@ owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['APP_CSS']->value;?>
 owl.theme.default.min.css">
     <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['APP_CSS']->value;?>
-templatemo-medic-care.css">
-    
+templatemo-medic-care.css?v=<?php echo $_smarty_tpl->tpl_vars['date']->value;?>
+">
+
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
         <div class="container">
             <a class="navbar-brand mx-auto d-lg-none" href="index.html">
@@ -51,23 +55,24 @@ templatemo-medic-care.css">
                 <strong class="d-block">Turnos médicos</strong>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/#hero">Inicio</a>
+                        <a class="nav-link" href="/#about">Inicio</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/#about">Acerca</a>
+                        <a class="nav-link" href="/#reviews">Nuestros Servicios</a>
                     </li>
 
                     <a class="navbar-brand d-none d-lg-block" href="/">
                         <span class="title-nav">POLIMEDIC</span>
-                        <strong class="d-block">Gestión de la Salud</strong>
+                        <strong class="d-block">Gestiona tu Salud</strong>
                     </a>
 
                     <li class="nav-item">
@@ -77,9 +82,9 @@ templatemo-medic-care.css">
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/login">Iniciar sesión</a>
                     </li>
-                    
+
                 </ul>
-                
+
             </div>
 
         </div>
@@ -87,7 +92,7 @@ templatemo-medic-care.css">
     <section class="hero" id="hero">
         <div class="container">
             <div class="row">
-    
+
                 <div class="col-12">
                     <div id="myCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -95,12 +100,12 @@ templatemo-medic-care.css">
                                 <img src="<?php echo $_smarty_tpl->tpl_vars['bannerImg1']->value;?>
 " class="img-fluid" alt="">
                             </div>
-    
+
                             <div class="carousel-item">
                                 <img src="<?php echo $_smarty_tpl->tpl_vars['bannerImg2']->value;?>
 " class="img-fluid" alt="">
                             </div>
-    
+
                             <div class="carousel-item">
                                 <img src="<?php echo $_smarty_tpl->tpl_vars['bannerImg3']->value;?>
 " class="img-fluid" alt="">
@@ -109,137 +114,148 @@ templatemo-medic-care.css">
                     </div>
 
                 </div>
-    
+
             </div>
         </div>
     </section>
-    
+
     <section class="section-padding" id="about">
         <div class="container">
             <div class="row">
-    
+
                 <div class="col-lg-6 col-md-6 col-12">
-                    <h2 class="mb-lg-3 mb-3">Un tip por tu salud!</h2>
-    
-                    <p>Protéjase y proteja a los demás usando máscaras y lavándose las manos con frecuencia. El exterior es más seguro que el interior para reuniones o eventos. Las personas que se enferman con la enfermedad del coronavirus (COVID-19) experimentarán síntomas leves a moderados y se recuperarán sin tratamientos especiales.
+                    <h2 class="mb-lg-3 mb-3">Nuestro Enfoque</h2>
+
+                    <p>Desarrollar una herramienta eficaz y de calidad, que permita facilitar el manejo de información,
+                        de forma efectiva para agilizar y tener control de los datos suministrados tanto por el
+                        responsable de la familia como por el grupo familiar.
                     </p>
-    
+
                 </div>
-    
+
                 <div class="col-lg-4 col-md-5 col-12 mx-auto">
                     <div class="featured-circle bg-white shadow-lg d-flex justify-content-center align-items-center">
-                        <p class="featured-text"><span class="featured-number">#1</span> Top<br> en control de turnos médicos.</p>
+                        <p class="featured-text"><span class="featured-number">#1</span> Top<br> en control de turnos
+                            médicos.</p>
                     </div>
                 </div>
-    
+
             </div>
         </div>
     </section>
-    
-    
-    
-    
+
+
+
+
     <section class="section-padding pb-0" id="reviews">
-    <div class="container">
-    <div class="accordion d-flex justify-content-center align-items-center height" id="accordionExample">
-    <div class="row">
-    <div class="col-md-6">
-        <div class="p-3">
-            <ul class="testimonial-list">
-                <li>
-                    <div class="card p-3" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="d-flex flex-row align-items-center"> <img src="<?php echo $_smarty_tpl->tpl_vars['APP_IMG']->value;?>
-people/mujer.jpg" width="50" class="rounded-circle">
-                            <div class="d-flex flex-column ml-2"> <span class="font-weight-normal">Maria Rodriguez</span> <span>Responsable de Familia</span> </div>
+        <div class="container">
+            <div class="accordion d-flex justify-content-center align-items-center height" id="accordionExample">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="p-3">
+                            <div>
+                                <div class="cuadrarTab ">
+                                    <div>
+                                        <img style="width: 300px;" src="<?php echo $_smarty_tpl->tpl_vars['bannerImgLaboratorio']->value;?>
+" alt="">
+                                    </div>
+                                    <div>
+                                        <p class="margLadoIsqui"> Laboratorio </p>
+                                    </div>
+                                </div>
+                                <div class="cuadrarTab2">
+                                    <div>
+                                        <p class="margLadoDere"> Medicina General </p>
+                                    </div>
+                                    <div>
+                                        <img style="width: 300px;" src="<?php echo $_smarty_tpl->tpl_vars['bannerImgMedicinaGe']->value;?>
+" alt="">
+                                    </div>
+                                </div>
+                                <div class="cuadrarTab">
+                                    <div>
+                                        <img style="width: 300px;" src="<?php echo $_smarty_tpl->tpl_vars['bannerImgSeguiSalud']->value;?>
+" alt="">
+                                    </div>
+                                    <div>
+                                        <p class="margLadoIsqui2"> Seguimiento y Controles de Salud </p>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </li>
-                <li>
-                    <div class="card p-3" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <div class="d-flex flex-row align-items-center"> <img src="<?php echo $_smarty_tpl->tpl_vars['APP_IMG']->value;?>
-people/man.jpg" width="50" class="rounded-circle">
-                            <div class="d-flex flex-column ml-2"> <span class="font-weight-normal">Cristian Alarcon</span> <span>Miembro de Familia</span> </div>
+                    <div class="col-md-6">
+                        <div class="p-3 " style="margin-left: 23px;">
+                            <div class="margTopBaja">
+                                <div class="cuadrarTab ">
+                                    <div>
+                                        <img style="width: 300px;" src="<?php echo $_smarty_tpl->tpl_vars['bannerImgRadio']->value;?>
+" alt="">
+                                    </div>
+                                    <div>
+                                        <p class="margLadoIsqui"> Radiografia </p>
+                                    </div>
+                                </div>
+                                <div class="cuadrarTab2">
+                                    <div>
+                                        <p class="margLadoDere"> Controles Medicos </p>
+                                    </div>
+                                    <div>
+                                        <img style="width: 300px;" src="<?php echo $_smarty_tpl->tpl_vars['bannerImgControles']->value;?>
+" alt="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </li>
-                <li>
-                    <div class="card p-3" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <div class="d-flex flex-row align-items-center"> <img src="<?php echo $_smarty_tpl->tpl_vars['APP_IMG']->value;?>
-people/mujer2.png" width="50" class="rounded-circle">
-                            <div class="d-flex flex-column ml-2"> <span class="font-weight-normal">Lina Vargas</span> <span>Responsable de Familia</span> </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="p-3 testimonials-margin">
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                    <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac consequat tortor.</h4>
-                    <div class="ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac consequat tortor. In hac habitasse platea dictumst. Integer aliquam luctus dui vel posuere. Fusce tempus aliquam ligula vel faucibus. Etiam semper est ut lacus convallis, a laoreet massa auctor. Vestibulum semper scelerisque dolor in posuere. Mauris mattis, arcu et consectetur faucibus, risus est posuere arcu, at finibus mi eros nec nisl. Vivamus nec felis metus. Mauris auctor blandit odio, nec venenatis dui porttitor et.</p>
-                </div>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                <div class="card-body">
-                    <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac consequat tortor.</h4>
-                    <div class="ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac consequat tortor. In hac habitasse platea dictumst. Integer aliquam luctus dui vel posuere. Fusce tempus aliquam ligula vel faucibus. Etiam semper est ut lacus convallis, a laoreet massa auctor. Vestibulum semper scelerisque dolor in posuere. Mauris mattis, arcu et consectetur faucibus, risus est posuere arcu, at finibus mi eros nec nisl. Vivamus nec felis metus. Mauris auctor blandit odio, nec venenatis dui porttitor et.</p>
-                </div>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                <div class="card-body">
-                    <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac consequat tortor.</h4>
-                    <div class="ratings"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac consequat tortor. In hac habitasse platea dictumst. Integer aliquam luctus dui vel posuere. Fusce tempus aliquam ligula vel faucibus. Etiam semper est ut lacus convallis, a laoreet massa auctor. Vestibulum semper scelerisque dolor in posuere. Mauris mattis, arcu et consectetur faucibus, risus est posuere arcu, at finibus mi eros nec nisl. Vivamus nec felis metus. Mauris auctor blandit odio, nec venenatis dui porttitor et.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-    </div>
     </section>
-    
+
     <section class="section-padding" id="contact">
         <div class="container">
             <div class="row">
-            
+
                 <div class="col-lg-8 col-12 mx-auto">
                     <div class="booking-form">
-                        
+
                         <h2 class="text-center mb-lg-3 mb-2">Contáctanos</h2>
-                        <p class="text-center">¿Tienes dudas, peticiones quejas o recursos?. Tu opinión es muy importante para nosotros, por ello en el momento que lo desees puedes hacer clic en ¡Enviar! en donde accederas a un formato de correo electrónico para contactarnos, nuetros usuarios son la prioridad número 1 de <span class="text-primary">PoliMedic</span> y por eso te atenderemos en cuestión de minutos. </p>
+                        <p class="text-center">¿Tienes dudas, peticiones quejas o recursos?. Tu opinión es muy
+                            importante para nosotros, por ello en el momento que lo desees puedes hacer clic en ¡Enviar!
+                            en donde accederas a un formato de correo electrónico para contactarnos, nuetros usuarios
+                            son la prioridad número 1 de <span class="text-primary">PoliMedic</span> y por eso te
+                            atenderemos en cuestión de minutos. </p>
                         <div class="row">
                             <div class="col-lg-3 mt-4 text-center" d-block style="margin:auto;">
-                                <button type="submit" class="glow-on-hover" type="button" id="submit-button">¡Enviar!</button>
+                                <button type="submit" class="glow-on-hover" type="button"
+                                    id="submit-button">¡Enviar!</button>
                             </div>
                         </div>
-    
+
                     </div>
                 </div>
-    
+
             </div>
         </div>
     </section>
-    
+
     </main>
-    
+
     <?php echo '<script'; ?>
 >
-    const buttonContact = document.getElementById("submit-button");
-    
-    buttonContact.onclick = function(){
-    window.open('mailto:contactoMediFlow@mediflow.com?subject=subject&body=body');
-    };
+        const buttonContact = document.getElementById("submit-button");
+
+        buttonContact.onclick = function() {
+            window.open('mailto:contactoMediFlow@mediflow.com?subject=subject&body=body');
+        };
     <?php echo '</script'; ?>
 >
 
 
-    
-  
+
+
 </body>
 
 </html><?php }
