@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-08-12 04:50:26
+/* Smarty version 4.1.1, created on 2022-08-13 19:07:57
   from 'C:\laragon\www\PoliMedic\app\templates\acceso\base_acesso.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_62f5dc123f0711_28918284',
+  'unifunc' => 'content_62f7f68debc477_80227391',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b31261713c70c6d2e0530f3d0a9addab6a0f96fd' => 
     array (
       0 => 'C:\\laragon\\www\\PoliMedic\\app\\templates\\acceso\\base_acesso.tpl',
-      1 => 1660279787,
+      1 => 1660417664,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62f5dc123f0711_28918284 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62f7f68debc477_80227391 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 
@@ -29,7 +29,8 @@ function content_62f5dc123f0711_28918284 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-        PoliMedic | Gestiona tu Salud
+        <?php echo $_smarty_tpl->tpl_vars['titulo']->value;?>
+
     </title>
     <link rel="icon" href="<?php echo $_smarty_tpl->tpl_vars['fav']->value;?>
 " type="image/x-icon">
@@ -51,7 +52,8 @@ function content_62f5dc123f0711_28918284 (Smarty_Internal_Template $_smarty_tpl)
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
 <?php echo '<script'; ?>
- src="//cdn.jsdelivr.net/npm/sweetalert2@11"><?php echo '</script'; ?>
+ src="<?php echo $_smarty_tpl->tpl_vars['APP_JS']->value;?>
+sweetalert.min.js"<?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"><?php echo '</script'; ?>

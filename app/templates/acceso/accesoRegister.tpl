@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="<!--{$APP_CSS}-->templatemo-medic-care.css?v=<!--{$date}-->">
 <link rel="stylesheet" href="<!--{$APP_CSS}-->register.css?v=<!--{$date}-->">
-<script src="<!--{$APP_JS}-->register.js"></script>
+<script src="<!--{$APP_JS}-->register.js?v=<!--{$date}-->"></script>
 
 
 
@@ -11,6 +11,7 @@
           <h2 id="heading">¡Vamos a crear tu cuenta!</h2>
           <p>Llena todos los campos para ir al siguiente paso</p>
           <form name="formulario" id="formulario" class="formulario" method="POST" action="<!--{$accion}-->">
+            <input type="hidden" id="mailDuplicity" value="false">
             <!-- progressbar -->
             <ul id="progressbar">
               <li class="active" id="account"><strong>Cuenta</strong></li>

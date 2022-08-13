@@ -51,6 +51,7 @@ error_reporting(E_ALL ^ E_NOTICE);
     }
 
     $casoConsulta           = $_POST['casoConsulta'];
+    $username               = $_POST['username'];
     $password               = md5($_POST['password']);
     $identification_type    = eliminar_acentos($_POST['identification_type']);
     $identification_number  = $_POST['identification_number'];
@@ -68,15 +69,16 @@ error_reporting(E_ALL ^ E_NOTICE);
 
             $validarAcceso = Login::login();
 
-            $acceso = $validarAcceso->login_users($correo,$pswUser);
+            $acceso = $validarAcceso->login_users($username,$password);
 
-            if($acceso == TRUE)
+            if($acceso)
             {
-                $combos = array("id" => $_SESSION['id'],"correo" => $_SESSION['correo'], "rol" => $_SESSION['rol'], "nombre" => $_SESSION['nombre'], "apellido" => $_SESSION['apellido'], "pass" => $_SESSION['pass']);
+                $combos = array("id" => $_SESSION['id'],"id_number" => $_SESSION['id_number'], "email" => $_SESSION['email'], "role" => $_SESSION['role_id'], "firstname" => $_SESSION['firstname'], "lastname" => $_SESSION['lastname'], "familycore_id" => $_SESSION['familycore_id'], "temporal_password" => $_SESSION['temporal_password']);
                 
             }else{
-                $combos = "";
+                $combos = $acceso;
             }
+
 
         break;
 
@@ -101,6 +103,36 @@ error_reporting(E_ALL ^ E_NOTICE);
             $registro = $registroUsuario->registro_users($user,$email,$password,$identification_type,$identification_number,$firstname,$lastname,$gender,$birthdate);
 
             $combos = $registro;
+
+        break;
+
+        case 'forgotPassword':        
+            function correoPassword($email, $combos)
+            {
+                $mail = new Emails();
+                $mail->parametrizarCorreo($SMTPDebug, $SMTPAuth, $SMTPSecure, $Host, $Port, $Username, $Password, $From, $FromName);
+                $mail->correoPassword($email, $combos);
+                if ($mail->Send()) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            $forgotPassword = Login::login();
+            $restablecer = $forgotPassword->forgotPassword($email);
+            $combos = $restablecer;
+
+            !$combos ? false : correoPassword($email, $combos);
+
+
+        break;
+
+        case 'mailDuplicity':        
+
+            $duplicityControl = Login::login();
+            $mailDuplicity = $duplicityControl->mailDuplicity($email);
+            $combos = $mailDuplicity;
 
         break;
 

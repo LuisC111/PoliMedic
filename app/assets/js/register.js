@@ -10,43 +10,50 @@ $(document).ready(function(){
     $("#next_cuenta").click(function(){
 
     if($("input[name='email']").val() == "" || $("input[name='pwd']").val() == "" || $("input[name='cpwd']").val() == "" || $("input[name='pwd']").val() != $("input[name='cpwd']").val()){
-            swal.fire({
-                type: 'error',
+        swal.fire({
                 title: '<center>Ha ocurrido un error</center>',
                 icon: 'error',
                 html: `<center>Aún hay campos vacios o las contraseña no coinciden.</center>`,
                 showConfirmButton: true,
                 timer: 8000,
-
         });
 
         return false;
     }
+
+    mailDuplicity()
+
+    if($("#mailDuplicity").val() == "false"){
+        return false;
+    }else{
+        $("#correo").text($("input[name='email']").val())
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+        
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        
+        //show the next fieldset
+        next_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+        step: function(now) {
+        // for making fielset appear animation
+        opacity = 1 - now;
+        
+        current_fs.css({
+        'display': 'none',
+        'position': 'relative'
+        });
+        next_fs.css({'opacity': opacity});
+        },
+        duration: 500
+        });
+        setProgressBar(++current);
+    }
     
-    $("#correo").text($("input[name='email']").val())
-    current_fs = $(this).parent();
-    next_fs = $(this).parent().next();
-    
-    //Add Class Active
-    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    
-    //show the next fieldset
-    next_fs.show();
-    //hide the current fieldset with style
-    current_fs.animate({opacity: 0}, {
-    step: function(now) {
-    // for making fielset appear animation
-    opacity = 1 - now;
-    
-    current_fs.css({
-    'display': 'none',
-    'position': 'relative'
-    });
-    next_fs.css({'opacity': opacity});
-    },
-    duration: 500
-    });
-    setProgressBar(++current);
+
+
     });
 
     $("#next_personal").click(function(){
@@ -164,6 +171,66 @@ $(document).ready(function(){
     $(".submit").click(function(){
     return false;
     })
+
+    mailDuplicity = () => {
+
+        var parametros = {
+            casoConsulta: "mailDuplicity",
+            email: $("input[name=email]").val(),
+        };
+        $.ajax({
+            url: "../app/inc_php/acceso/datosAcceso.php",
+            type: "POST",
+            async: true,
+            dataType: "json",
+            data: parametros,
+            beforeSend: function() {
+                $('#next_personal').html('<i class="fa fa-spinner fa-spin"></i>');
+            },
+            success: function(response) {
+
+                console.log(response.combos);
+
+                if(response.combos == false){
+                    $("#mailDuplicity").val("false");
+                    swal.fire({
+                        title: '<center>Ha ocurrido un error</center>',
+                        icon: 'error',
+                        html: `<center>La dirección de correo electrónico ya se encuentra registrada.</center>`,
+                        showConfirmButton: true,
+                        timer: 8000,
+                });
+            
+                
+                }else{
+                    $("#mailDuplicity").val("true");
+                }
+                
+            },
+            error: function(error) {
+                console.log(error);
+                swal.fire({
+                    type: 'error',
+                    title: '<center>Ha ocurrido un error</center>',
+                    icon: 'error',
+                    html: `<center>Ocurrió un error al control la duplicidad de correos.</center>`,
+                    showConfirmButton: false,
+                    timer: 8000,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    focusConfirm: false,
+                    showCloseButton: false,
+                    focusClose: false
+
+                });
+            },
+            complete: function() {
+                $('#next_verificacion').html('<i class="fa fa-arrow-right"></i>');
+            }  
+        });  
+
+    }
 
 
     verifyUser = () => {

@@ -14,7 +14,7 @@ $rutaAppCss     = obtenerRutaRelativa($RUTA_ARCHIVO, CSS_DIR);
 $rutaAppJs      = obtenerRutaRelativa($RUTA_ARCHIVO, JS_DIR);
 
 
-$titulo = 'Registrate | PoliMedic';
+$titulo = 'Restablece tu contraseña | PoliMedic';
 $date = date("YmdHi");
 
 $smarty->assign("sid"                   , SID);
@@ -32,6 +32,6 @@ $smarty->assign('date'              	, $date);
 
 $smarty->display('acceso/base_acesso.tpl');
 $smarty->display('acceso/header.tpl');
-$smarty->display('acceso/accesoRegister.tpl');
+$smarty->display('acceso/forgotPassword.tpl');
 $smarty->display('footer.tpl');
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>
-        PoliMedic | Gestiona tu Salud
+        <!--{$titulo}-->
     </title>
     <link rel="icon" href="<!--{$fav}-->" type="image/x-icon">
     <meta name="description" content="PoliMedic" />
@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<!--{$APP_JS}-->sweetalert.min.js"</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -1,18 +1,5 @@
 $(document).ready(function() {
 
-    $("#sobreMi").click(function() {
-        Swal.fire({
-            title: 'Sobre mí',
-            html: '¡Hola!, mi nombre es Luis Carlos Martínez un apasionado por la programación, He trabajado con lenguajes tales como PHP, Java, JavaScript, Python, C#, SQL, y con frameworks como React.js, Node.js, Laravel, Spring Boot. Estaría encantado de trabajar contigo, puedes revisar mi portafolio de proyectos en GitHub y si te gusta alguno puedes apoyarme dejando una estrellita',
-            imageUrl: '../app/imagenes/imgYo.jpg',
-            imageWidth: 300,
-            imageHeight: 280,
-            imageAlt: 'Mi foto',
-            confirmButtonColor: '#1E6CA9',
-            confirmButtonText: 'Aceptar'
-        })
-    });
-
     var scrollpos = window.scrollY;
     var header = document.getElementById("header");
     var navcontent = document.getElementById("nav-content");

@@ -57,7 +57,6 @@ $smarty->config_dir = CONFIGS_DIR;
 $smarty->left_delimiter = LEFT_DELIMITER;
 $smarty->right_delimiter = RIGHT_DELIMITER;
 
-
 /******************************************************************************/
 /******************* Configuracion De Correos Electrónicos ********************/
 /******************************************************************************/

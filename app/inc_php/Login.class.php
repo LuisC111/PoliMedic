@@ -29,32 +29,57 @@
      
         }
     
-        public function login_users($correo,$pass)
+        public function login_users($username,$password)
         {
             
             try {
                 
-                $sql = "SELECT * from usuario WHERE correoUsuario = ? AND passUsuario = ?";
+                $sql = "SELECT * from user WHERE user = ? AND password = ?";
                 $query = $this->dbh->prepare($sql);
-                $query->bindParam(1,$correo);
-                $query->bindParam(2,$pass);
+                $query->bindParam(1,$username);
+                $query->bindParam(2,$password);
                 $query->execute();
-                $this->dbh = null;
      
                 //si existe el usuario
                 if($query->rowCount() == 1)
                 {
-                     
                     $fila  = $query->fetch();
-                    $_SESSION['id'] = $fila['idUsuario']; 
-                    $_SESSION['cedula'] = $fila['cedulaUsuario'];       
-                    $_SESSION['correo'] = $fila['correoUsuario'];   
-                    $_SESSION['rol'] = $fila['idRol'];    
-                    $_SESSION['nombre'] = $fila['nombreUsuario'];         
-                    $_SESSION['apellido'] = $fila['apellidoUsuario']; 
-                    $_SESSION['pass'] = $fila['passUsuario'];
+                    $_SESSION['id'] = $fila['id']; 
+                    $_SESSION['id_number'] = $fila['identification_number'];       
+                    $_SESSION['email'] = $fila['email'];   
+                    $_SESSION['role_id'] = $fila['role_id'];    
+                    $_SESSION['firstname'] = $fila['firstname'];         
+                    $_SESSION['lastname'] = $fila['lastname']; 
+                    $_SESSION['familycore_id'] = $fila['familycore_id'];
+                    $_SESSION['temporal_password'] = false;
+
                     return true;
-        
+                }else{
+
+                    $sqlTemporal = "SELECT * from user WHERE user = ? AND temporal_password = ?";
+                    $query = $this->dbh->prepare($sqlTemporal);
+                    $query->bindParam(1,$username);
+                    $query->bindParam(2,$password);
+                    $query->execute();
+                    $this->dbh = null;
+         
+                    //si existe el usuario
+                    if($query->rowCount() == 1)
+                    {
+                        $fila  = $query->fetch();
+                        $_SESSION['id'] = $fila['id']; 
+                        $_SESSION['id_number'] = $fila['identification_number'];       
+                        $_SESSION['email'] = $fila['email'];   
+                        $_SESSION['role_id'] = $fila['role_id'];    
+                        $_SESSION['firstname'] = $fila['firstname'];         
+                        $_SESSION['lastname'] = $fila['lastname']; 
+                        $_SESSION['familycore_id'] = $fila['familycore_id'];
+                        $_SESSION['temporal_password'] = true;
+                        return true;
+                    }else{
+                        return false;
+                    }
+    
                 }
                 
             }catch(PDOException $e){
@@ -156,6 +181,83 @@
             
         }
 
+        public function mailDuplicity($email)
+        {
+            
+            try {      
+                $sql = "SELECT id as id from user where email = :email";
+                $query = $this->dbh->prepare($sql);
+                $params = array(
+                    ':email' => $email
+                );
+                $query->execute($params);
+
+                if($query->rowCount() >= 1)
+                {
+                    return false;
+                }else{
+                    return true;
+                }
+                
+               
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+
+        public function forgotPassword($email)
+        {
+            
+            try {      
+                $sqlId = "SELECT id as id from user where email = :email";
+                $queryId = $this->dbh->prepare($sqlId);
+                $params = array(
+                    ':email' => $email
+                );
+                $queryId->execute($params);
+                $id = $queryId->fetchColumn();
+                $temporal_password = $this->generatePassword();
+                $hash_password = md5($temporal_password);
+
+                $sqlUpdate = "UPDATE user SET temporal_password = :temporal_password WHERE id = :id";
+                $queryUpdate = $this->dbh->prepare($sqlUpdate);
+                $params = array(
+                    ':temporal_password' => $hash_password,
+                    ':id' => $id
+                );
+                $queryUpdate->execute($params);
+                if($queryUpdate->rowCount() == 1)
+                {
+                    return $temporal_password;
+                }
+                else
+                {
+                    return false;
+                }   
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+        public function generatePassword()
+        {
+            $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            $pass = array(); 
+            $alphaLength = strlen($alphabet) - 1;
+            for ($i = 0; $i < 8; $i++) {
+                $n = rand(0, $alphaLength);
+                $pass[] = $alphabet[$n];
+            }
+            return implode($pass); 
+        }
+        
         // public function editar_users($cedula,$nombre,$apellido,$correo,$pass)
         // {
 
