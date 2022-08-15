@@ -14,6 +14,9 @@ if (!defined('AUX_DIR')) {
 if (!defined('CONFIG_DIR')) {
     define('CONFIG_DIR',    $RUTA_PROYECTO . '/config/');
 }
+if (!defined('DASH_DIR')) {
+    define('DASH_DIR',       $RUTA_PROYECTO . '/app/assets/dashboard/');
+}
 if (!defined('CSS_DIR')) {
     define('CSS_DIR',       $RUTA_PROYECTO . '/app/assets/css/');
 }
@@ -28,6 +31,10 @@ if (!defined('JS_DIR')) {
 }
 if (!defined('TMP_DIR')) {
     define('TMP_DIR',       $RUTA_PROYECTO . '/tmp/');
+}
+
+if (!defined('RUTA_LOGIN')) {
+    define('RUTA_LOGIN',    $RUTA_PROYECTO . '/accesoLogin');
 }
 
 if (!defined('PHPMAILER_DIR')) {

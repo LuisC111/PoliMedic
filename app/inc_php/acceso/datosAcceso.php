@@ -1,6 +1,8 @@
 <?php
 
 error_reporting(E_ALL ^ E_NOTICE);
+if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SERVER['HTTP_REFERER']) && $_POST){ 
+
 
     require_once '../../../config/config.php';
     include_once INC_PHP_DIR.'obtenerRutaRelativa.php';
@@ -153,4 +155,6 @@ if($error){
 else{
     $response = array('success' => true, 'combos' => $combos, 'datos_correo' => $datos_correo, 'code' => $code);
     echo json_encode($response);
+}
+
 }

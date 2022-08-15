@@ -28,8 +28,6 @@ $smarty->assign('APP_IMG'              	, $rutaImagenes);
 $smarty->assign('fav'              	    , $rutaImagenes."logo.png");
 $smarty->assign('date'              	, $date);
 
-
-
 $smarty->display('acceso/base_acesso.tpl');
 $smarty->display('acceso/header.tpl');
 $smarty->display('acceso/accesoRegister.tpl');

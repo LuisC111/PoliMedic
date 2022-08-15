@@ -9,7 +9,8 @@
 
 <body> 
   <div class="content">
-    <div class="container">
+    <form id="formulario" name="formulario" method="POST" action="../dashboard/dashboard" enctype="multipart/form-data" > 
+      <div class="container">
       <div class="row">
         <div class="col-md-6">
           <img src="<!--{$APP_IMG}-->access/login.svg" alt="Image" class="img-fluid">
@@ -47,9 +48,11 @@
           </div>
           
         </div>
-        
       </div>
     </div>
+
+  </form>  
+
   </div>
 
     <script src="<!--{$APP_JS}-->login.js?v=<!--{$date}-->"></script>

@@ -44,6 +44,7 @@
                 if($query->rowCount() == 1)
                 {
                     $fila  = $query->fetch();
+                    session_start();                    
                     $_SESSION['id'] = $fila['id']; 
                     $_SESSION['id_number'] = $fila['identification_number'];       
                     $_SESSION['email'] = $fila['email'];   
@@ -66,6 +67,7 @@
                     //si existe el usuario
                     if($query->rowCount() == 1)
                     {
+                        session_start();
                         $fila  = $query->fetch();
                         $_SESSION['id'] = $fila['id']; 
                         $_SESSION['id_number'] = $fila['identification_number'];       

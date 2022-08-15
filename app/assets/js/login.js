@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+
+
 	$(function() {
 		'use strict';
 		
@@ -14,7 +16,8 @@ $(document).ready(function(){
 	
 	});
 
-	$("#login").click(function(){
+	$("#login").click(function(evento){
+    evento.preventDefault();
 		if($("#username").val() == "" || $("#password").val() == ""){
 			swal.fire({
                 title: '<center>Ha ocurrido un error</center>',
@@ -44,9 +47,31 @@ $(document).ready(function(){
                 $('#login').html('<i class="fa fa-spinner fa-spin"></i>');
             },
             success: function(response) {
-				if(response.combos != false){
-					// window.location.href = "../app/inc_php/acceso/datosAcceso.php";
-					console.log(response.combos);
+          if(response.combos != false){
+
+          var atributosInput;
+
+					// window.location.href = "../dashboard";
+					// console.log(response.combos['id']);          
+          atributosInput = { type: 'hidden', id: 'id', name: 'id', value: response.combos['id'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'id_number', name: 'id_number', value: response.combos['id_number'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'firstname', name: 'firstname', value: response.combos['firstname'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'lastname', name: 'lastname', value: response.combos['lastname'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'email', name: 'email', value: response.combos['email'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'role', name: 'role', value: response.combos['role'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'familycore_id', name: 'familycore_id', value: response.combos['familycore_id'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'temporal_password', name: 'temporal_password', value: response.combos['temporal_password'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+
+          $('#formulario').submit();
+
 				}else{
 					swal.fire({
 						title: '<center>Ha ocurrido un error</center>',
