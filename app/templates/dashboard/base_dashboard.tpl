@@ -19,6 +19,12 @@
   <link href="<!--{$APP_DASH}-->css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="<!--{$APP_DASH}-->css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+  <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="<!--{$APP_JS}-->sweetalert.min.js"</script>
+  <script src="<!--{$APP_JS}-->dashboard.js?v=<!--{$date}-->"></script>
+
 
   
 </head>

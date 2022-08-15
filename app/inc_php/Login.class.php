@@ -39,6 +39,25 @@
                 $query->bindParam(1,$username);
                 $query->bindParam(2,$password);
                 $query->execute();
+
+                $sqlU = "SELECT COUNT(id) as users from user";
+                $queryU = $this->dbh->prepare($sqlU);
+                $queryU->execute();
+
+                $sqlT = "SELECT COUNT(id) as users_t from user where creation_date > DATE_SUB(NOW(), INTERVAL 1 DAY)";
+                $queryT = $this->dbh->prepare($sqlT);
+                $queryT->execute();
+
+
+                $sqlF = "SELECT COUNT(id) as families from family_core";
+                $queryF = $this->dbh->prepare($sqlF);
+                $queryF->execute();
+
+                $sqlR = "SELECT COUNT(id) as roles from role";
+                $queryR = $this->dbh->prepare($sqlR);
+                $queryR->execute();
+
+
      
                 //si existe el usuario
                 if($query->rowCount() == 1)
@@ -53,6 +72,10 @@
                     $_SESSION['lastname'] = $fila['lastname']; 
                     $_SESSION['familycore_id'] = $fila['familycore_id'];
                     $_SESSION['temporal_password'] = false;
+                    $_SESSION['users'] = $queryU->fetch()['users'];
+                    $_SESSION['users_t'] = $queryT->fetch()['users_t'];
+                    $_SESSION['families'] = $queryF->fetch()['families'];
+                    $_SESSION['roles'] = $queryR->fetch()['roles'];
 
                     return true;
                 }else{
@@ -62,6 +85,24 @@
                     $query->bindParam(1,$username);
                     $query->bindParam(2,$password);
                     $query->execute();
+
+                    $sqlU = "SELECT COUNT(id) as users from user";
+                    $queryU = $this->dbh->prepare($sqlU);
+                    $queryU->execute();
+    
+                    $sqlT = "SELECT COUNT(id) as users_t from user where creation_date > DATE_SUB(NOW(), INTERVAL 1 DAY)";
+                    $queryT = $this->dbh->prepare($sqlT);
+                    $queryT->execute();
+    
+    
+                    $sqlF = "SELECT COUNT(id) as families from family_core";
+                    $queryF = $this->dbh->prepare($sqlF);
+                    $queryF->execute();
+    
+                    $sqlR = "SELECT COUNT(id) as roles from role";
+                    $queryR = $this->dbh->prepare($sqlR);
+                    $queryR->execute();
+    
                     $this->dbh = null;
          
                     //si existe el usuario
@@ -77,6 +118,11 @@
                         $_SESSION['lastname'] = $fila['lastname']; 
                         $_SESSION['familycore_id'] = $fila['familycore_id'];
                         $_SESSION['temporal_password'] = true;
+                        $_SESSION['users'] = $queryU->fetch()['users'];
+                        $_SESSION['users_t'] = $queryT->fetch()['users_t'];
+                        $_SESSION['families'] = $queryF->fetch()['families'];
+                        $_SESSION['roles'] = $queryR->fetch()['roles'];
+    
                         return true;
                     }else{
                         return false;
@@ -91,6 +137,47 @@
             }        
             
         }
+
+        public function loadData()
+        {
+            
+            try {
+                
+                $sql = "SELECT COUNT(id) as users from user";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+
+                $sqlT = "SELECT COUNT(id) as users_t from user where creation_date > DATE_SUB(NOW(), INTERVAL 1 DAY)";
+                $queryT = $this->dbh->prepare($sqlT);
+                $queryT->execute();
+
+
+                $sqlF = "SELECT COUNT(id) as families from family_core";
+                $queryF = $this->dbh->prepare($sqlF);
+                $queryF->execute();
+
+                $sqlR = "SELECT COUNT(id) as roles from role";
+                $queryR = $this->dbh->prepare($sqlR);
+                $queryR->execute();
+
+                session_start(); 
+                $_SESSION['users'] = $query->fetch['users'];
+                $_SESSION['users_today'] = $queryT->fetch()['users_t'];
+                $_SESSION['families'] = $queryF->fetch()['families'];
+                $_SESSION['roles'] = $queryR->fetch()['roles'];
+
+                return true;
+               
+                
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+
 
 
 

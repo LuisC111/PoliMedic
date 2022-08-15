@@ -2,13 +2,11 @@
 error_reporting(0);
 
 require_once '../config/config.php';
-
 session_start();
 
 if(!isset($_SESSION['id'])){
     header('Location: ../acceso/accesoLogin');
 }
-
 
 include_once INC_PHP_DIR.'obtenerRutaRelativa.php';
 $RUTA_ARCHIVO   = dirname(__FILE__);
@@ -46,6 +44,8 @@ $smarty->assign('usersToday'            , $_SESSION['users_today'] == null ? 0 :
 $smarty->assign('families'              , $_SESSION['families']);
 $smarty->assign('roles'                 , $_SESSION['roles']);
 
+
 $smarty->display('dashboard/base_dashboard.tpl');
-$smarty->display('dashboard/dashboard.tpl');
+$smarty->display('dashboard/user.tpl');
+
 

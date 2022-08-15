@@ -48,11 +48,7 @@ $(document).ready(function(){
             },
             success: function(response) {
           if(response.combos != false){
-
           var atributosInput;
-
-					// window.location.href = "../dashboard";
-					// console.log(response.combos['id']);          
           atributosInput = { type: 'hidden', id: 'id', name: 'id', value: response.combos['id'] };
           $('<input>').attr(atributosInput).appendTo('#formulario');
           atributosInput = { type: 'hidden', id: 'id_number', name: 'id_number', value: response.combos['id_number'] };
@@ -68,6 +64,14 @@ $(document).ready(function(){
           atributosInput = { type: 'hidden', id: 'familycore_id', name: 'familycore_id', value: response.combos['familycore_id'] };
           $('<input>').attr(atributosInput).appendTo('#formulario');
           atributosInput = { type: 'hidden', id: 'temporal_password', name: 'temporal_password', value: response.combos['temporal_password'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'users', name: 'users', value: response.combos['users'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'users_today', name: 'users_today', value: response.combos['users_today'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'families', name: 'families', value: response.combos['families'] };
+          $('<input>').attr(atributosInput).appendTo('#formulario');
+          atributosInput = { type: 'hidden', id: 'roles', name: 'roles', value: response.combos['roles'] };
           $('<input>').attr(atributosInput).appendTo('#formulario');
 
           $('#formulario').submit();
@@ -105,5 +109,5 @@ $(document).ready(function(){
             }  
         });  
 	}
+});
 
-})

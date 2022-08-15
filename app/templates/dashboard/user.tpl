@@ -1,3 +1,4 @@
+<script src="<!--{$APP_JS}-->dashboard/user.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -13,7 +14,7 @@
     <div class="collapse navbar-collapse  w-auto" id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="./dashboard">
+          <a class="nav-link" href="./dashboard">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
             </div>
@@ -21,7 +22,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./user">
+          <a class="nav-link active" href="./user">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-circle-08 text-success text-sm opacity-10"></i>
             </div>
@@ -138,7 +139,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Principal</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Usuarios</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -172,190 +173,54 @@
       </div>
     </nav>
     <!-- End Navbar -->
+   
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Usuarios Totales:</p>
-                    <h5 class="font-weight-bolder">
-                      <!--{$users}-->
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                    <i class="ni ni-circle-08 text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-header pb-0">
+                <h6 class="text-center">Tabla Usuarios</h6>
+              </div>
+              <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <div id="divTblSolicitudes" class="form-group"> <!--style="display:none"-->
+                        <div class="table-responsive">
+                            <table id="tblSolicitudes" class="table align-items-center mb-0" name="tblSolicitudes" style="width:100%">
+                            <!--<table class="tablesorter text-center" id="tblSolicitudes" name="tblSolicitudes">-->
+                            <!--<table class="table table-striped table-hover table-bordered text-center" id="tblSolicitudes" name="tblSolicitudes">-->
+                            </table>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Usuarios Hoy</p>
-                    <h5 class="font-weight-bolder">
-                      <!--{$usersToday}-->
-                    </h5>
+
+        <div id="modal-detalleSolicitud" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog  modal-lg">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h3 style="display:block;margin:auto;">Detalles del usuario</h3>
+                      </div>
+                      <div class="modal-body">
+                          <div id="divTblDetalleSolicitud" class="form-group">
+                              <div class="table-responsive">
+                                  <table class="table table-striped table-bordered text-center" id="tblDetalleSolicitud" name="tblDetalleSolicitud">
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button id="btnModalInactivar" type="button" class="btn btn-danger" >Inactivar</button>
+                          <button id="btnModalCerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      </div>
                   </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">nucleos familiares</p>
-                    <h5 class="font-weight-bolder">
-                      <!--{$families}-->
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Roles</p>
-                    <h5 class="font-weight-bolder">
-                      <!--{$roles}-->
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                    <i class="ni ni-badge text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-lg-7 mb-lg-0 mb-4">
-          <div class="card z-index-2 h-100">
-            <div class="card-header pb-0 pt-3 bg-transparent">
-              <h6 class="text-capitalize">Sales overview</h6>
-              <p class="text-sm mb-0">
-                <i class="fa fa-arrow-up text-success"></i>
-                <span class="font-weight-bold">4% more</span> in 2021
-              </p>
-            </div>
-            <div class="card-body p-3">
-              <div class="chart">
-                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5">
-          <div class="card card-carousel overflow-hidden h-100 p-0">
-            <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
-              <div class="carousel-inner border-radius-lg h-100">
-                <div class="carousel-item h-100 active" style="background-image: url('<!--{$APP_DASH}-->img/carousel-1.jpg');
-      background-size: cover;">
-                  <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                      <i class="ni ni-camera-compact text-dark opacity-10"></i>
-                    </div>
-                    <h5 class="text-white mb-1">Polimedic</h5>
-                    <p>Toma el control de tu salud.</p>
-                  </div>
-                </div>
-                <div class="carousel-item h-100" style="background-image: url('<!--{$APP_DASH}-->img/carousel-2.jpg');
-      background-size: cover;">
-                  <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                      <i class="ni ni-bulb-61 text-dark opacity-10"></i>
-                    </div>
-                    <h5 class="text-white mb-1">Rápido, Intuitivo y Flexible</h5>
-                    <p>Facil de usar e intuitivo.</p>
-                  </div>
-                </div>
-                <div class="carousel-item h-100" style="background-image: url('<!--{$APP_DASH}-->img/carousel-3.jpg');
-      background-size: cover;">
-                  <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                      <i class="ni ni-trophy text-dark opacity-10"></i>
-                    </div>
-                    <h5 class="text-white mb-1">Agrega a todo tu nucleo familiar</h5>
-                    <p>En PoliMedic contamos contigo y con tu familia!</p>
-                  </div>
-                </div>
-              </div>
-              <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <footer class="footer pt-3  ">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Desarollado con <i class="fa fa-heart"></i> por
-                <a href="https://github.com/LuisC111/PoliMedic" class="font-weight-bold" target="_blank">Politécnico Team</a>
-                por una mejor gestión de tu salud.
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://github.com/LuisC111/PoliMedic" class="nav-link text-muted" target="_blank">Repositorio</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://github.com/LuisC111/" class="nav-link text-muted" target="_blank">GitHub</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link text-muted" target="_blank">&nbsp;</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link pe-0 text-muted" target="_blank">&nbsp;</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+
+
     </div>
   </main>
   <div class="fixed-plugin">
@@ -419,11 +284,11 @@
   <script src="<!--{$APP_DASH}-->js/plugins/smooth-scrollbar.min.js"></script>
   <script src="<!--{$APP_DASH}-->js/plugins/chartjs.min.js"></script>
   <script>
+
     $("#logout").click(function(){
-      window.location.href = '../acceso/accesoLogin';
-  }
+        window.location.href = '../acceso/accesoLogin';
+    }
 );
-  
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);

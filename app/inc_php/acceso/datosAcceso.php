@@ -75,7 +75,7 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
             if($acceso)
             {
-                $combos = array("id" => $_SESSION['id'],"id_number" => $_SESSION['id_number'], "email" => $_SESSION['email'], "role" => $_SESSION['role_id'], "firstname" => $_SESSION['firstname'], "lastname" => $_SESSION['lastname'], "familycore_id" => $_SESSION['familycore_id'], "temporal_password" => $_SESSION['temporal_password']);
+                $combos = array("id" => $_SESSION['id'],"id_number" => $_SESSION['id_number'], "email" => $_SESSION['email'], "role" => $_SESSION['role_id'], "firstname" => $_SESSION['firstname'], "lastname" => $_SESSION['lastname'], "familycore_id" => $_SESSION['familycore_id'], "temporal_password" => $_SESSION['temporal_password'],"users" => $_SESSION['users'],"users_today" => $_SESSION['users_today'], "families" => $_SESSION['families'], "roles" => $_SESSION['roles']);
                 
             }else{
                 $combos = $acceso;
