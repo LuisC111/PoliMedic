@@ -56,7 +56,31 @@
                 $sqlR = "SELECT COUNT(id) as roles from role";
                 $queryR = $this->dbh->prepare($sqlR);
                 $queryR->execute();
+                
+                $sqlUserCore = "SELECT f.name from user u inner join family_core f on u.familycore_id = f.id where u.user = ?";
+                $queryUserCore = $this->dbh->prepare($sqlUserCore);
+                $queryUserCore->bindParam(1,$username);
+                $queryUserCore->execute();
 
+                $sqlCountCore = "SELECT count(*) from user u inner join family_core f on u.familycore_id = f.id where u.user = ?";
+                $queryCountCore = $this->dbh->prepare($sqlCountCore);
+                $queryCountCore->bindParam(1,$username);
+                $queryCountCore->execute();
+
+                $sqlUserRole = "SELECT 
+                CASE 
+                    WHEN r.id = 1 THEN 'Administrador' 
+                    WHEN r.id = 2 THEN 'Responsable de Familia' 
+                    WHEN r.id = 3 THEN 'Miembro de Familia'
+                     ELSE r.name
+                    END as name
+                    from user u 
+                    inner join role r 
+                    on u.role_id = r.id 
+                    where u.user = ?";
+                $queryUserRole = $this->dbh->prepare($sqlUserRole);
+                $queryUserRole->bindParam(1,$username);
+                $queryUserRole->execute();
 
      
                 //si existe el usuario
@@ -76,6 +100,9 @@
                     $_SESSION['users_t'] = $queryT->fetch()['users_t'];
                     $_SESSION['families'] = $queryF->fetch()['families'];
                     $_SESSION['roles'] = $queryR->fetch()['roles'];
+                    $_SESSION['user_core'] = $queryUserCore->fetch()['name'];
+                    $_SESSION['count_core'] = $queryCountCore->fetch()['count(*)'];
+                    $_SESSION['user_role'] = $queryUserRole->fetch()['name'];
 
                     return true;
                 }else{
@@ -122,6 +149,10 @@
                         $_SESSION['users_t'] = $queryT->fetch()['users_t'];
                         $_SESSION['families'] = $queryF->fetch()['families'];
                         $_SESSION['roles'] = $queryR->fetch()['roles'];
+                        $_SESSION['user_core'] = $queryUserCore->fetch()['name'];
+                        $_SESSION['count_core'] = $queryCountCore->fetch()['count(*)'];
+                        $_SESSION['user_role'] = $queryUserRole->fetch()['name'];
+    
     
                         return true;
                     }else{

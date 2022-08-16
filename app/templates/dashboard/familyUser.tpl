@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/role.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/familyUser.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -23,7 +23,7 @@
         </li>
         <!--{if $role eq '2' or $role eq '3'}-->
         <li class="nav-item">
-          <a class="nav-link " href="./familyUser">
+          <a class="nav-link active" href="./familyUser">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-vector text-success text-sm opacity-10"></i>
             </div>
@@ -33,7 +33,7 @@
         <!--{/if}-->
         <!--{if $role eq '1'}-->
         <li class="nav-item">
-          <a class="nav-link " href="./user">
+          <a class="nav-link" href="./user">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-circle-08 text-success text-sm opacity-10"></i>
             </div>
@@ -49,7 +49,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./role">
+          <a class="nav-link " href="./role">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-badge text-success text-sm opacity-10"></i>
             </div>
@@ -148,12 +148,13 @@
   </aside>
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
+    <input type="hidden" name="familycore_id" id="familycore_id" value="<!--{$familycore_id}-->">
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Roles</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Nucleos Familiares</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -193,10 +194,11 @@
           <div class="col-12">
             <div class="card mb-4">
               <div class="card-header pb-0">
-                <h6 class="text-center">Tabla Roles</h6>
+                <h6 class="text-center">Tu Nucleo Familiar</h6>
               </div>
-              <button id="btnModalAgregar" style="width:20%;display:block;margin:auto;" type="button" class="btn btn-success" >+ Nuevo Rol</button>
-
+              <!--{if $role eq '2'}-->
+              <button id="btnModalAgregar" style="width:20%;display:block;margin:auto;" type="button" class="btn btn-success" >+ Agregar Miembro</button>
+              <!--{/if}-->
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
                     <div id="divTblSolicitudes" class="form-group"> <!--style="display:none"-->
@@ -217,7 +219,7 @@
           <div class="modal-dialog  modal-lg">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Detalles del rol</h3>
+                          <h3 style="display:block;margin:auto;">Detalles del miembro</h3>
                       </div>
                       <div class="modal-body">
                           <div id="divTblDetalleSolicitud" class="form-group">
@@ -228,42 +230,72 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button id="btnModalInactivar" type="button" class="btn btn-danger" >Inactivar</button>
                           <button id="btnModalCerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                       </div>
                   </div>
               </div>
           </div>
-        </div>
+      </div>
 
-        <div id="modal-agregar" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-          <div class="modal-dialog  modal-lg">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Crear Rol</h3>
-                      </div>
-                      <div class="modal-body">
-                          <form id="formAgregar" name="formAgregar" method="POST">
-                            <div class="row">
-                              <div class="col-6">
-                                  <label for="txtNombre">Nombre</label>
-                                  <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombre del rol">
-                              </div>
-                              <div class="col-6">
-                                  <label for="txtEstado">Estado</label>
-                                  <input type="text" class="form-control" id="state" name="state" value="Activo" disabled="true">
-                              </div>
+      <div id="modal-agregar" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 style="display:block;margin:auto;">Crear Miembro</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregar" name="formAgregar" method="POST">
+                          <div class="row">
+                            <div class="col-6">
+                                <label for="txtNombre">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico del usuario">
                             </div>
-                          </form>
-                      </div>
-                      <div class="modal-footer">
-                          <button id="btnModalAdd" type="button" class="btn btn-success" >Crear</button>
-                          <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Tipo de documento: <span style="color: red">*</span></label>
+                                <select class="form-control" name="identification_type">
+                                    <option value="Cedula de ciudadanía">Cedula de ciudadanía</option>
+                                    <option value="Cedula de extanjería">Cedula de extanjería</option>
+                                    <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                                    <option value="NUIP">NUIP</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                    <option value="Permiso especial de Permanencia">Permiso especial de Permanencia</option>
+                                  </select>                              
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Número de documento: <span style="color: red">*</span></label>
+                                <input class="form-control" type="number" name="identification_number" placeholder="Digita tu número de documento" />                
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Nombre(s): <span style="color: red">*</span></label>
+                                <input class="form-control" type="text" name="firstname" placeholder="Escribe tu nombre" />        
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Apellidos(s): <span style="color: red">*</span></label>
+                                <input class="form-control" type="text" name="lastname" placeholder="Escribe tu apellido" />        
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Genero: <span style="color: red">*</span></label>
+                                <select class="form-control" name="gender">
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="No Binario">No Binario</option>
+                                  </select>          
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Fecha de nacimiento: <span style="color: red">*</span></label>
+                                <input class="form-control" type="date" name="birthdate"  />
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnModalAdd" type="button" class="btn btn-success" >Crear</button>
+                        <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
         </div>
+      </div>
 
 
     </div>

@@ -87,7 +87,7 @@
                 <div class="row">
                     <div class="col-6">
                         <label class="fieldlabels">Genero: <span style="color: red">*</span></label>
-                        <select name="gender">
+                          <select name="gender">
                             <option value="Femenino">Femenino</option>
                             <option value="Masculino">Masculino</option>
                             <option value="No Binario">No Binario</option>

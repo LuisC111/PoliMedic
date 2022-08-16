@@ -2,13 +2,11 @@
 error_reporting(0);
 
 require_once '../config/config.php';
-
 session_start();
 
 if(!isset($_SESSION['id'])){
     header('Location: ../acceso/accesoLogin');
 }
-
 
 include_once INC_PHP_DIR.'obtenerRutaRelativa.php';
 $RUTA_ARCHIVO   = dirname(__FILE__);
@@ -21,7 +19,7 @@ $rutaAppJs      = obtenerRutaRelativa($RUTA_ARCHIVO, JS_DIR);
 $rutaDashboard  = obtenerRutaRelativa($RUTA_ARCHIVO, DASH_DIR);
 
 
-$titulo = 'Dashboard | PoliMedic';
+$titulo = 'Tu Nucleo Familiar | PoliMedic';
 $date = date("YmdHi");
 
 $smarty->assign("sid"                   , SID);
@@ -45,10 +43,9 @@ $smarty->assign('users'                 , $_SESSION['users']);
 $smarty->assign('usersToday'            , $_SESSION['users_today'] == null ? 0 : $_SESSION['users_today']);
 $smarty->assign('families'              , $_SESSION['families']);
 $smarty->assign('roles'                 , $_SESSION['roles']);
-$smarty->assign('user_core'             , $_SESSION['user_core']);
-$smarty->assign('count_core'            , $_SESSION['count_core']);
-$smarty->assign('user_role'             , $_SESSION['user_role']);
+
 
 $smarty->display('dashboard/base_dashboard.tpl');
-$smarty->display('dashboard/dashboard.tpl');
+$smarty->display('dashboard/familyUser.tpl');
+
 

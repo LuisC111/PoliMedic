@@ -129,6 +129,50 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
+        case 'tblFamilyUser':
+            
+            $loadFamilyUser = Dashboard::login();
+            $tblFamilyUser = $loadFamilyUser->tblFamilyUser($id);
+            $combos = $tblFamilyUser;
+
+        break;
+
+        case 'detalleTblFamilyUser':
+            
+            $loadFamilyUser = Dashboard::login();
+            $detalleTblFamilyUser = $loadFamilyUser->detalleTblFamilyUser($id);
+            $combos = $detalleTblFamilyUser;
+
+        break;
+
+        case 'addMember':
+            
+            $identification_type    = eliminar_acentos($_POST['identification_type']);
+            $identification_number  = $_POST['identification_number'];
+            $firstname              = eliminar_acentos($_POST['firstname']);
+            $lastname               = eliminar_acentos($_POST['lastname']);
+            $gender                 = $_POST['gender'];
+            $birthdate              = $_POST['birthdate'];
+            $email                  = $_POST['email'];
+            $user                   = substr(strtolower($firstname), 0, 1).substr(strtolower($lastname), 0, 3).substr($identification_number, 0, 4);        
+            
+            $loadFamilyRole = Dashboard::login();
+            $addMember = $loadFamilyRole->addMember($id,$user,$email,$identification_type,$identification_number,$firstname,$lastname,$gender,$birthdate);
+            $combos = $addMember;
+            $userMember = $combos['user'];
+            $passMember = $combos['password'];
+
+            $mail = new Emails();
+            $mail->parametrizarCorreo($SMTPDebug, $SMTPAuth, $SMTPSecure, $Host, $Port, $Username, $Password, $From, $FromName);
+            $mail->correoMember($email, $userMember, $passMember);
+            if ($mail->Send()) {
+                $datos_correo = true;
+            }else{
+                $datos_correo = 'El correo de verificación no pudo ser enviado. ';
+            }
+
+        break;
+
 
        
 

@@ -30,7 +30,6 @@
      
         }
     
-    
         public function tblUser()
         {
             
@@ -302,6 +301,137 @@
             }        
             
         }
+
+        public function tblFamilyUser($id)
+        {
+            
+            try {
+                
+                $sql = "SELECT u.id as 'ID',
+                u.fullname as 'NOMBRE COMPLETO', 
+                f.name as 'NUCLEO FAMILIAR', 
+                CASE 
+                    when u.role_id = 1 THEN 'Administrador'
+                    when u.role_id = 2 THEN 'Responsable de la Familia' 
+                    when u.role_id = 3 THEN 'Miembro de la Familia' 
+                END as 'Rol',
+                CASE 
+                    when u.state = 1 THEN 'Activo'
+                    when u.state = 0 THEN 'Inactivo'
+                    else 'Sin Estado'
+                END as 'Estado'
+                FROM family_core f 
+                INNER JOIN user u 
+                ON f.id = u.familycore_id 
+                where f.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+        public function detalleTblFamilyUser($id){
+            try {
+                
+                $sql = "SELECT u.id as 'ID',
+                u.fullname as 'NOMBRE COMPLETO', 
+                f.name as 'NUCLEO FAMILIAR', 
+                CASE 
+                    when u.role_id = 1 THEN 'Administrador'
+                    when u.role_id = 2 THEN 'Responsable de la Familia' 
+                    when u.role_id = 3 THEN 'Miembro de la Familia' 
+                END as 'Rol',
+                CASE 
+                    when u.state = 1 THEN 'Activo'
+                    when u.state = 0 THEN 'Inactivo'
+                    else 'Sin Estado'
+                END as 'Estado',
+                u.email as 'CORREO ELECTRÓNICO',
+                u.creation_date as 'FECHA DE CREACIÓN',
+                u.identification_number as 'IDENTIFICACIÓN',
+                u.identification_type as 'TIPO DE IDENTIFICACIÓN'
+                FROM family_core f 
+                INNER JOIN user u 
+                ON f.id = u.familycore_id 
+                where u.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+        }
+
+        public function addMember($id,$user,$email,$identification_type,$identification_number,$firstname,$lastname,$gender,$birthdate)
+        {
+            
+            try {     
+                $temporal_password = $this->generatePassword();
+                $hash_password = md5($temporal_password);           
+                $sql = "INSERT INTO user (identification_type,identification_number,user,password,fullname,firstname,lastname,gender,birthdate,email,type,state,role_id,familycore_id,creation_date,modification_date)";
+                $sql .= " VALUES ( ";
+                $sql .= " :identification_type, :identification_number, :user, :password, :fullname, :firstname, :lastname, :gender, :birthdate, :email, :type, :state, :role_id, :familycore_id, :creation_date, :modification_date)";
+                $query = $this->dbh->prepare($sql);
+                $params = array(
+                    ':identification_type' => $identification_type,
+                    ':identification_number' => $identification_number,
+                    ':user' => $user,
+                    ':password' => $hash_password,
+                    ':fullname' => $firstname. ' ' .$lastname,
+                    ':firstname' => $firstname,
+                    ':lastname' => $lastname,
+                    ':gender' => $gender,
+                    ':birthdate' => date('Y-m-d', strtotime($birthdate)),
+                    ':email' => $email,
+                    ':type' => 'Miembro de la Familia',
+                    ':state' => 1,
+                    ':role_id' => 3,
+                    ':familycore_id' => $id,
+                    ':creation_date' => date("Y-m-d"),
+                    ':modification_date' => null
+                );
+                $query->execute($params);
+                $this->dbh = null;
+                $uspa= array();
+                $uspa['user'] = $user;
+                $uspa['password'] = $temporal_password;
+                return $uspa;
+                
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+        public function generatePassword()
+        {
+            $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            $pass = array(); 
+            $alphaLength = strlen($alphabet) - 1;
+            for ($i = 0; $i < 8; $i++) {
+                $n = rand(0, $alphaLength);
+                $pass[] = $alphabet[$n];
+            }
+            return implode($pass); 
+        }
+
 
 
         
