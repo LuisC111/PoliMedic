@@ -47,7 +47,11 @@
                     ELSE 'Sin Rol'
                 END AS 'ROL',
                 f.name as 'NUCLEO FAMILIAR',
-                u.state as 'ESTADO'
+                CASE 
+                    WHEN u.state = 1 THEN 'Activo'
+                    WHEN u.state = 0 THEN 'Inactivo'
+                    ELSE 'Sin Estado'
+                END AS 'ESTADO'
                 from user u
                 inner join family_core f 
                 on u.familycore_id = f.id";
@@ -117,6 +121,152 @@
             try {
                 
                 $sql = "UPDATE user SET state = 0 WHERE id = :id";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(':id', $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+        public function tblFamily_core(){
+
+            try {
+                
+                $sql = "SELECT 
+                f.id as ID, 
+                u.fullname as 'RESPONSABLE DEL NUCLEO FAMILIAR', 
+                f.name as 'NOMBRE DEL NUCLEO FAMILIAR',
+                COUNT(*) as 'NÚMERO DE MIEMBROS'
+                from family_core f 
+                inner join user u 
+                on f.owner_id = u.id
+                GROUP BY f.id";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+
+        }
+
+        public function detalleTblFamily_core($id){
+
+            try {
+                
+                $sql = "SELECT 
+                f.id as ID, 
+                u.fullname as 'RESPONSABLE DEL NUCLEO FAMILIAR', 
+                f.name as 'NOMBRE DEL NUCLEO FAMILIAR',
+                COUNT(*) as 'NÚMERO DE MIEMBROS'
+                from family_core f 
+                inner join user u 
+                on f.owner_id = u.id
+                where f.id = :id
+                GROUP BY f.id";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(':id', $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+
+        }
+
+
+        public function tblRole()
+        {
+            
+            try {
+                
+                $sql = "SELECT r.id as ID,
+                CASE 
+                    WHEN r.name = 'admin' THEN 'Administrador'
+                    WHEN r.name = 'owner' THEN 'Responsable de Familia'
+                    WHEN r.name = 'member' THEN 'Miembro de Familia'
+                    ELSE 'Sin Rol'
+                END AS 'NOMBRE DEL ROL',
+                CASE 
+                    WHEN r.state = 1 THEN 'Activo'
+                    WHEN r.state = 0 THEN 'Inactivo'
+                    ELSE 'Sin Estado'
+                END AS 'ESTADO'
+                from role r";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+        public function detalleTblRole($id)
+        {
+            
+            try {
+                
+                $sql = "SELECT r.id as ID,
+                CASE 
+                    WHEN r.name = 'admin' THEN 'Administrador'
+                    WHEN r.name = 'owner' THEN 'Responsable de Familia'
+                    WHEN r.name = 'member' THEN 'Miembro de Familia'
+                    ELSE 'Sin Rol'
+                END AS 'NOMBRE DEL ROL',
+                CASE 
+                    WHEN r.state = 1 THEN 'Activo'
+                    WHEN r.state = 0 THEN 'Inactivo'
+                    ELSE 'Sin Estado'
+                END AS 'ESTADO'
+                from role r
+                where r.id = :id";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(':id', $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+        public function inactiveRole($id)
+        {
+            
+            try {
+                
+                $sql = "UPDATE role SET state = 0 WHERE id = :id";
                 $query = $this->dbh->prepare($sql);
                 $query->bindParam(':id', $id);
                 $query->execute();

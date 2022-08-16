@@ -5,11 +5,6 @@ $(document).ready(function() {
         $("#modal-detalleSolicitud").modal('hide')
     });
 
-    $("#btnModalInactivar").click(function() {
-        inactiveUser($('#hidIdSolicitud').val());
-    });
-
-
     $("input[type='checkbox']").change(function() {
         $(this).val(this.checked ? "1" : "0");
     });
@@ -36,44 +31,13 @@ $(document).ready(function() {
 
 
 
-function inactiveUser(id){
-    var parametros = {
-        casoConsulta: 'inactiveUser',
-        valorConsulta: id
-    };
-    $.ajax({
-        url: "../app/inc_php/dashboard/datosDashboard.php",
-        type: "POST",
-        async: true,
-        dataType: "json",
-        data: parametros,
-        success: function(response) {
-                swal.fire({
-                    title: '<center>El nuevo estado del usuario es:</center>',
-                    icon: 'success',
-                    html: `<center>Inactivo</center>`,
-                    showConfirmButton: true,
-                    timer: 8000,
-                }).then(function() {
-                    $('#modal-detalleSolicitud').modal('hide');
-                    listarSolicitudes($('#divTblSolicitudes'), $('#tblSolicitudes'));
-                });
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            //alert("Error en solicitud Ajax de | "+jqXHR.responseText + " | " + textStatus + " | " + errorThrown);
-            var msgError = "Error en solicitud Ajax de consulta | " + jqXHR.responseText + " | " + textStatus + " | " + errorThrown;
-            $('#divAlert').show();
-            $('#spmError').html(msgError);
-        }
-    });
-}
 
 
 function detallarSolicitud(solicitud) {
     $('#txtModalObservacionesUGC').val('');
     $('#divAlertModal').hide();
     var parametros = {
-        casoConsulta: 'detalleTblUser',
+        casoConsulta: 'detalleTblFamily_core',
         valorConsulta: solicitud.val()
     };
     $.ajax({
@@ -100,7 +64,6 @@ function detallarSolicitud(solicitud) {
                         var atributosInput = { type: 'hidden', id: 'hidIdSolicitud', name: 'hidIdSolicitud', value: solicitud.attr('value') };
                         $('<input>').attr(atributosInput).appendTo('#modal-detalleSolicitud');
                         $('#modal-detalleSolicitud').modal('show');
-                        response.combos[0].ESTADO == 'Activo' ? $("#btnModalInactivar").show() : $("#btnModalInactivar").hide();
                         solicitud.prop('checked', false);
 
                 } else {
@@ -127,7 +90,7 @@ function detallarSolicitud(solicitud) {
 function listarSolicitudes(divControl, control) {
 
     var parametros = {
-        casoConsulta: "tblUser"
+        casoConsulta: "tblFamily_core"
         };
     $.ajax({
         url: "../app/inc_php/dashboard/datosDashboard.php",
@@ -320,23 +283,13 @@ function creaFilasTabla(filas, tabla) {
                 var nuevoInput = $('<td>').append(($('<input>').attr(atributosInputRadio)));
                 nuevaFila.append(nuevoInput);
                 $.each(filas[i], function(nombre, valor) {
-                    if (valor == 'Activo') {
-                        nuevaFila.append($('<td class="si">').text('1'));
-                    }else if (valor == 'Inactivo') {
-                        nuevaFila.append($('<td class="no">').text('0'));
-                    }else{
                         nuevaFila.append($('<td>').text(valor));
-                    }
                 });
                 tableBody.append(nuevaFila);
 
             }
 
             tabla.append(tableBody);
-            $(".si").text('');
-            $(".si").append($('<span class="badge badge-sm bg-gradient-success">Activo</span>'));
-            $(".no").text('');
-            $(".no").append($('<span class="badge badge-sm bg-gradient-danger">Inactivo</span>'));
 
             break;
 

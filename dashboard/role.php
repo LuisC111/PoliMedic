@@ -19,7 +19,7 @@ $rutaAppJs      = obtenerRutaRelativa($RUTA_ARCHIVO, JS_DIR);
 $rutaDashboard  = obtenerRutaRelativa($RUTA_ARCHIVO, DASH_DIR);
 
 
-$titulo = 'Usuarios | PoliMedic';
+$titulo = 'Roles | PoliMedic';
 $date = date("YmdHi");
 
 $smarty->assign("sid"                   , SID);
@@ -46,6 +46,6 @@ $smarty->assign('roles'                 , $_SESSION['roles']);
 
 
 $smarty->display('dashboard/base_dashboard.tpl');
-$smarty->display('dashboard/user.tpl');
+$smarty->display('dashboard/role.tpl');
 
 

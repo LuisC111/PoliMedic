@@ -81,6 +81,46 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
+        case 'tblFamily_core':
+
+            $loadFamily_core = Dashboard::login();
+            $tblFamily_core = $loadFamily_core->tblFamily_core();
+            $combos = $tblFamily_core;
+
+        break;
+
+        case 'detalleTblFamily_core':
+            
+            $loadFamily_core = Dashboard::login();
+            $detalleTblFamily_core = $loadFamily_core->detalleTblFamily_core($id);
+            $combos = $detalleTblFamily_core;
+
+        break;
+
+        case 'tblRole':
+
+            $loadRole = Dashboard::login();
+            $tblRole = $loadRole->tblRole();
+            $combos = $tblRole;
+
+        break;
+
+        case 'detalleTblRole':
+
+            $loadRole = Dashboard::login();
+            $detalleTblRole = $loadRole->detalleTblRole($id);
+            $combos = $detalleTblRole;
+
+        break;
+
+        case 'inactiveRole':
+
+            $loadRole = Dashboard::login();
+            $inactiveRole = $loadRole->inactiveRole($id);
+            $combos = $inactiveRole;
+
+        break;
+
 
        
 

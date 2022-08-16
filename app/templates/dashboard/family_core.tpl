@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/user.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/family_core.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -22,7 +22,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./user">
+          <a class="nav-link" href="./user">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-circle-08 text-success text-sm opacity-10"></i>
             </div>
@@ -30,7 +30,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./family_core">
+          <a class="nav-link active" href="./family_core">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-vector text-success text-sm opacity-10"></i>
             </div>
@@ -139,7 +139,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Usuarios</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Nucleos Familiares</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -179,7 +179,7 @@
           <div class="col-12">
             <div class="card mb-4">
               <div class="card-header pb-0">
-                <h6 class="text-center">Tabla Usuarios</h6>
+                <h6 class="text-center">Tabla Nucleos Familiares</h6>
               </div>
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
@@ -201,7 +201,7 @@
           <div class="modal-dialog  modal-lg">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Detalles del usuario</h3>
+                          <h3 style="display:block;margin:auto;">Detalles del nucleo familiar</h3>
                       </div>
                       <div class="modal-body">
                           <div id="divTblDetalleSolicitud" class="form-group">
@@ -212,7 +212,6 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button id="btnModalInactivar" type="button" class="btn btn-danger" >Inactivar</button>
                           <button id="btnModalCerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                       </div>
                   </div>

@@ -6,7 +6,7 @@ $(document).ready(function() {
     });
 
     $("#btnModalInactivar").click(function() {
-        inactiveUser($('#hidIdSolicitud').val());
+        inactiveRole($('#hidIdSolicitud').val());
     });
 
 
@@ -36,9 +36,9 @@ $(document).ready(function() {
 
 
 
-function inactiveUser(id){
+function inactiveRole(id){
     var parametros = {
-        casoConsulta: 'inactiveUser',
+        casoConsulta: 'inactiveRole',
         valorConsulta: id
     };
     $.ajax({
@@ -49,7 +49,7 @@ function inactiveUser(id){
         data: parametros,
         success: function(response) {
                 swal.fire({
-                    title: '<center>El nuevo estado del usuario es:</center>',
+                    title: '<center>El nuevo estado del rol es:</center>',
                     icon: 'success',
                     html: `<center>Inactivo</center>`,
                     showConfirmButton: true,
@@ -73,7 +73,7 @@ function detallarSolicitud(solicitud) {
     $('#txtModalObservacionesUGC').val('');
     $('#divAlertModal').hide();
     var parametros = {
-        casoConsulta: 'detalleTblUser',
+        casoConsulta: 'detalleTblRole',
         valorConsulta: solicitud.val()
     };
     $.ajax({
@@ -127,7 +127,7 @@ function detallarSolicitud(solicitud) {
 function listarSolicitudes(divControl, control) {
 
     var parametros = {
-        casoConsulta: "tblUser"
+        casoConsulta: "tblRole"
         };
     $.ajax({
         url: "../app/inc_php/dashboard/datosDashboard.php",
