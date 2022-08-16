@@ -5,8 +5,21 @@ $(document).ready(function() {
         $("#modal-detalleSolicitud").modal('hide')
     });
 
+    $('#btnModalClose').click(function() {
+        $('#txtNombre').val('');
+        $("#modal-agregar").modal('hide')
+    });
+
+    $("#btnModalAgregar").click(function() {
+        $("#modal-agregar").modal('show')
+    });
+
     $("#btnModalInactivar").click(function() {
         inactiveRole($('#hidIdSolicitud').val());
+    });
+
+    $("#btnModalAdd").click(function() {
+        addRole();
     });
 
 
@@ -56,6 +69,39 @@ function inactiveRole(id){
                     timer: 8000,
                 }).then(function() {
                     $('#modal-detalleSolicitud').modal('hide');
+                    listarSolicitudes($('#divTblSolicitudes'), $('#tblSolicitudes'));
+                });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            //alert("Error en solicitud Ajax de | "+jqXHR.responseText + " | " + textStatus + " | " + errorThrown);
+            var msgError = "Error en solicitud Ajax de consulta | " + jqXHR.responseText + " | " + textStatus + " | " + errorThrown;
+            $('#divAlert').show();
+            $('#spmError').html(msgError);
+        }
+    });
+}
+
+function addRole(){
+    var parametros = {
+        casoConsulta: 'addRole',
+        valorConsulta: $('#txtNombre').val()
+    };
+    $.ajax({
+        url: "../app/inc_php/dashboard/datosDashboard.php",
+        type: "POST",
+        async: true,
+        dataType: "json",
+        data: parametros,
+        success: function(response) {
+                swal.fire({
+                    title: '<center>¡Has creado un nuevo rol!</center>',
+                    icon: 'success',
+                    html: `<center>Rol: ${$('#txtNombre').val()}</center>`,
+                    showConfirmButton: true,
+                    timer: 8000,
+                }).then(function() {
+                    $('#modal-agregar').modal('hide');
+                    $('#txtNombre').val('');
                     listarSolicitudes($('#divTblSolicitudes'), $('#tblSolicitudes'));
                 });
         },

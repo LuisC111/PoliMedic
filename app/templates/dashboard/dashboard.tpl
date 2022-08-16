@@ -20,6 +20,7 @@
             <span class="nav-link-text ms-1">Página Principal</span>
           </a>
         </li>
+        <!--{if $role eq '1'}-->
         <li class="nav-item">
           <a class="nav-link" href="./user">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -44,6 +45,7 @@
             <span class="nav-link-text ms-1">Roles</span>
           </a>
         </li>
+        <!--{/if}-->
         <li class="nav-item">
           <a class="nav-link " href="./health_condition">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -84,6 +86,7 @@
             <span class="nav-link-text ms-1">Reportes</span>
           </a>
         </li>
+        <!--{if $role eq '1'}-->
         <li class="nav-item">
           <a class="nav-link " href="./common_disease">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -116,6 +119,7 @@
             <span class="nav-link-text ms-1">Entrenamientos</span>
           </a>
         </li>
+        <!--{/if}-->
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Página de Perfil</h6>
         </li>
@@ -172,6 +176,7 @@
       </div>
     </nav>
     <!-- End Navbar -->
+    <!--{if $role eq '1'}-->
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -323,6 +328,9 @@
           </div>
         </div>
       </div>
+      <!--{else}-->
+      <h1>a</h1>
+      <!--{/if}-->
       
       <footer class="footer pt-3  ">
         <div class="container-fluid">

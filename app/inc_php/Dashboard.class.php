@@ -205,7 +205,7 @@
                     WHEN r.name = 'admin' THEN 'Administrador'
                     WHEN r.name = 'owner' THEN 'Responsable de Familia'
                     WHEN r.name = 'member' THEN 'Miembro de Familia'
-                    ELSE 'Sin Rol'
+                    ELSE r.name
                 END AS 'NOMBRE DEL ROL',
                 CASE 
                     WHEN r.state = 1 THEN 'Activo'
@@ -274,6 +274,27 @@
     
                 return $result;
                     
+            }catch(PDOException $e){
+                
+                return false;
+                
+            }        
+            
+        }
+
+        public function addRole($id)
+        {
+            
+            try {
+
+                $sql = "INSERT INTO role (name, state) VALUES (:id, 1)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(':id', $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                      
             }catch(PDOException $e){
                 
                 return false;

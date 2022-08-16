@@ -37,7 +37,7 @@ $smarty->assign('username'              , $_SESSION['firstname']. " " .$_SESSION
 $smarty->assign('id'                    , $_SESSION['id']);
 $smarty->assign('id_number'             , $_SESSION['id_number']);
 $smarty->assign('email'                 , $_SESSION['email']);
-$smarty->assign('role'                  , $_SESSION['role']);
+$smarty->assign('role'                  , $_SESSION['role_id']);
 $smarty->assign('familycore_id'         , $_SESSION['familycore_id']);
 $smarty->assign('users'                 , $_SESSION['users']);
 $smarty->assign('usersToday'            , $_SESSION['users_today'] == null ? 0 : $_SESSION['users_today']);

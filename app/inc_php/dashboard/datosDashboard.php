@@ -121,6 +121,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
+        case 'addRole':
+
+            $loadRole = Dashboard::login();
+            $addRole = $loadRole->addRole($id);
+            $combos = $addRole;
+
+        break;
+
 
        
 

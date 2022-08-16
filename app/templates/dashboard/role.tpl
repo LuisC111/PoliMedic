@@ -21,6 +21,7 @@
             <span class="nav-link-text ms-1">Página Principal</span>
           </a>
         </li>
+        <!--{if $role eq '1'}-->
         <li class="nav-item">
           <a class="nav-link " href="./user">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -45,6 +46,7 @@
             <span class="nav-link-text ms-1">Roles</span>
           </a>
         </li>
+        <!--{/if}-->
         <li class="nav-item">
           <a class="nav-link " href="./health_condition">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -85,6 +87,7 @@
             <span class="nav-link-text ms-1">Reportes</span>
           </a>
         </li>
+        <!--{if $role eq '1'}-->
         <li class="nav-item">
           <a class="nav-link " href="./common_disease">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -117,6 +120,7 @@
             <span class="nav-link-text ms-1">Entrenamientos</span>
           </a>
         </li>
+        <!--{/if}-->
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Página de Perfil</h6>
         </li>
@@ -181,6 +185,8 @@
               <div class="card-header pb-0">
                 <h6 class="text-center">Tabla Roles</h6>
               </div>
+              <button id="btnModalAgregar" style="width:20%;display:block;margin:auto;" type="button" class="btn btn-success" >+ Nuevo Rol</button>
+
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
                     <div id="divTblSolicitudes" class="form-group"> <!--style="display:none"-->
@@ -218,7 +224,36 @@
                   </div>
               </div>
           </div>
-      </div>
+        </div>
+
+        <div id="modal-agregar" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+          <div class="modal-dialog  modal-lg">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h3 style="display:block;margin:auto;">Crear Rol</h3>
+                      </div>
+                      <div class="modal-body">
+                          <form id="formAgregar" name="formAgregar" method="POST">
+                            <div class="row">
+                              <div class="col-6">
+                                  <label for="txtNombre">Nombre</label>
+                                  <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombre del rol">
+                              </div>
+                              <div class="col-6">
+                                  <label for="txtEstado">Estado</label>
+                                  <input type="text" class="form-control" id="state" name="state" value="Activo" disabled="true">
+                              </div>
+                            </div>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button id="btnModalAdd" type="button" class="btn btn-success" >Crear</button>
+                          <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
 
 
     </div>
