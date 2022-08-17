@@ -173,6 +173,77 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
+        case 'tblHealth_condition_admin':
+                
+                $loadHealth_condition_admin = Dashboard::login();
+                $tblHealth_condition_admin = $loadHealth_condition_admin->tblHealth_condition_admin();
+                $combos = $tblHealth_condition_admin;
+
+        break;
+
+        case 'tblHealth_condition_admin_detail':
+                    
+                $loadHealth_condition_admin = Dashboard::login();
+                $tblHealth_condition_admin_detail = $loadHealth_condition_admin->tblHealth_condition_admin_detail($id);
+                $combos = $tblHealth_condition_admin_detail;
+
+        break;
+
+        case 'tblHealth_condition_member':
+
+                $loadHealth_condition_member = Dashboard::login();
+                $tblHealth_condition_member = $loadHealth_condition_member->tblHealth_condition_member($id);
+                $combos = $tblHealth_condition_member;
+
+        break;
+
+        case 'tblHealth_condition_owner':
+
+                $loadHealth_condition_owner = Dashboard::login();
+                $tblHealth_condition_owner = $loadHealth_condition_owner->tblHealth_condition_owner($id);
+                $combos = $tblHealth_condition_owner;
+
+        break;
+
+        case 'lab_type':
+
+                $loadLab_type = Dashboard::login();
+                $lab_type = $loadLab_type->lab_type();
+                $combos = $lab_type;
+
+        break;
+
+        case 'common_disease':
+
+                $loadCommon_disease = Dashboard::login();
+                $common_disease = $loadCommon_disease->common_disease();
+                $combos = $common_disease;
+
+        break;
+
+        case 'addHealthCondition':
+
+                $addHealthCondition = Dashboard::login();
+                $healthCondition = $addHealthCondition->addHealthCondition($id, $_POST['lab_type'], $_POST['extension'],$_POST['family_core'], $_POST['common_disease'], $_POST['particular_desease']);
+                $combos = $healthCondition;
+
+        break;
+
+        case 'addHealthConditionMember':
+
+            $addHealthCondition = Dashboard::login();
+            $healthCondition = $addHealthCondition->addHealthConditionMember($id, $_POST['idMember'], $_POST['lab_type'], $_POST['extension'],$_POST['family_core'], $_POST['common_disease'], $_POST['particular_desease']);
+            $combos = $healthCondition;
+
+    break;
+        
+        case 'listMembers':
+
+                $listMembers = Dashboard::login();
+                $listMembers = $listMembers->listMembers($id, $_POST['idOwner']);
+                $combos = $listMembers;
+
+        break;
 
        
 

@@ -432,6 +432,326 @@
             return implode($pass); 
         }
 
+        public function tblHealth_condition_admin()
+        {
+                
+                try {
+                    
+                    $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    h.appoinment_date as 'Fecha de registro', 
+                    l.lab_type as 'Examen de Laboratorio', 
+                    c.common_disease as 'Enfermedad Común',
+                    CASE 
+                        when h.particular_desease is null THEN 'No'
+                        else h.particular_desease
+                    END as 'Enfermedad Particular'
+                    from health_condition h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join lab_type l 
+                    on h.lab_type = l.id 
+                    inner join common_disease c 
+                    on h.common_disease = c.id";
+                    $query = $this->dbh->prepare($sql);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+                
+        }
+
+        public function tblHealth_condition_admin_detail($id)
+        {
+                
+                try {
+                    
+                    $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    h.appoinment_date as 'Fecha de registro', 
+                    l.lab_type as 'Examen de Laboratorio', 
+                    h.lab_file_path as 'Archivo de Laboratorio',
+                    c.common_disease as 'Enfermedad Común',
+                    CASE 
+                        when h.particular_desease is null THEN 'No'
+                        else h.particular_desease
+                    END as 'Enfermedad Particular',
+                    f.name as 'Nucleo Familiar',
+                    CASE
+                        when h.id_owner is null THEN 'No'
+                        else 'Si'
+                    END as '¿Lo registro el responsable de la familia?'
+                    from health_condition h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join lab_type l 
+                    on h.lab_type = l.id 
+                    inner join common_disease c 
+                    on h.common_disease = c.id
+                    inner join family_core f
+                    on h.family_core = f.id
+                    where h.id = ?";
+                    $query = $this->dbh->prepare($sql);
+                    $query->bindParam(1, $id);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+                
+        }
+
+        public function tblHealth_condition_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                l.lab_type as 'Examen de Laboratorio', 
+                c.common_disease as 'Enfermedad Común',
+                CASE 
+                    when h.particular_desease is null THEN 'No'
+                    else h.particular_desease
+                END as 'Enfermedad Particular'
+                from health_condition h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join lab_type l 
+                on h.lab_type = l.id 
+                inner join common_disease c 
+                on h.common_disease = c.id
+                where h.id_user = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function tblHealth_condition_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                l.lab_type as 'Examen de Laboratorio', 
+                c.common_disease as 'Enfermedad Común',
+                CASE 
+                    when h.particular_desease is null THEN 'No'
+                    else h.particular_desease
+                END as 'Enfermedad Particular'
+                from health_condition h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join lab_type l 
+                on h.lab_type = l.id 
+                inner join common_disease c 
+                on h.common_disease = c.id
+                where h.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function lab_type()
+        {
+            try {
+                    
+                $sql = "SELECT * from lab_type";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function common_disease()
+        {
+            try {
+                    
+                $sql = "SELECT * from common_disease";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addHealthCondition($id, $lab_type, $extension, $family_core, $common_disease, $particular_desease)
+        {
+            try {
+
+                $path = "../app/uploaded_files/lab_exam/";
+
+                $date = date("Y-m-d");
+                $sql = "INSERT INTO health_condition (id_user, appoinment_date, lab_type, lab_file_path, family_core, common_disease, particular_desease) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $date);
+                $query->bindParam(3, $lab_type);
+                $query->bindParam(4, $path);
+                $query->bindParam(5, $family_core);
+                $query->bindParam(6, $common_disease);
+                $query->bindParam(7, $particular_desease);
+                $query->execute();
+
+                if($query->rowCount() > 0){
+
+                    $sqlSelect = "SELECT MAX(id) from health_condition";
+                    $querySelect = $this->dbh->prepare($sqlSelect);
+                    $querySelect->execute();
+                    $result = $querySelect->fetchAll(PDO::FETCH_ASSOC);
+                    $max = $result[0]['MAX(id)'];
+
+                    $lab_file_path = "../app/uploaded_files/lab_exam/".$max.".".$extension;
+                    $sqlUpdate = "UPDATE health_condition SET lab_file_path = :lab_file_path WHERE id = :id";
+                    $queryUpdate = $this->dbh->prepare($sqlUpdate);
+                    $params = array(
+                        ':lab_file_path' => $lab_file_path,
+                        ':id' => $max
+                    );
+                    $queryUpdate->execute($params);
+                    if($queryUpdate->rowCount() == 1)
+                    {
+                        return $max;
+                    }
+                    else
+                    {
+                        return $max;
+                    }
+                }else{
+                    return false;
+                }
+
+                
+                
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addHealthConditionMember($id, $idMember, $lab_type, $extension, $family_core, $common_disease, $particular_desease)
+        {
+            try {
+
+                $path = "../app/uploaded_files/lab_exam/";
+                
+                $date = date("Y-m-d");
+                $sql = "INSERT INTO health_condition (id_user, appoinment_date, lab_type, lab_file_path, id_owner, family_core, common_disease, particular_desease) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $date);
+                $query->bindParam(3, $lab_type);
+                $query->bindParam(4, $path);
+                $query->bindParam(5, $id);
+                $query->bindParam(6, $family_core);
+                $query->bindParam(7, $common_disease);
+                $query->bindParam(8, $particular_desease);
+                $query->execute();
+
+                if($query->rowCount() > 0){
+
+                    $sqlSelect = "SELECT MAX(id) from health_condition";
+                    $querySelect = $this->dbh->prepare($sqlSelect);
+                    $querySelect->execute();
+                    $result = $querySelect->fetchAll(PDO::FETCH_ASSOC);
+                    $max = $result[0]['MAX(id)'];
+
+                    $lab_file_path = "../app/uploaded_files/lab_exam/".$max.".".$extension;
+                    $sqlUpdate = "UPDATE health_condition SET lab_file_path = :lab_file_path WHERE id = :id";
+                    $queryUpdate = $this->dbh->prepare($sqlUpdate);
+                    $params = array(
+                        ':lab_file_path' => $lab_file_path,
+                        ':id' => $max
+                    );
+                    $queryUpdate->execute($params);
+                    if($queryUpdate->rowCount() == 1)
+                    {
+                        return $max;
+                    }
+                    else
+                    {
+                        return $max;
+                    }
+                }else{
+                    return $query;
+                }
+
+                
+                
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+
+        public function listMembers($id, $idOwner)
+        {
+            try {
+                    
+                $sql = "SELECT id, fullname from user where familycore_id = ? and id != ?";
+                $stmt = $this->dbh->prepare($sql);
+                $stmt->bindParam(1, $id);
+                $stmt->bindParam(2, $idOwner);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
 
 
         

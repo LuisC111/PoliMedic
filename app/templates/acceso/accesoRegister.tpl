@@ -160,7 +160,7 @@
                 <div class="row justify-content-center">
                   <div class="col-7 text-center">
                     <h5 class="ptext-center">
-                    <button type="submit"><a href="./accesoLogin">Clic aquí para iniciar sesión</a></button> 
+                    <button class="btn btn-primary" type="submit"><a style="color:white;" href="./accesoLogin">Clic aquí para iniciar sesión</a></button> 
                     </h5>
                   </div>
                 </div>
