@@ -235,13 +235,70 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
             $healthCondition = $addHealthCondition->addHealthConditionMember($id, $_POST['idMember'], $_POST['lab_type'], $_POST['extension'],$_POST['family_core'], $_POST['common_disease'], $_POST['particular_desease']);
             $combos = $healthCondition;
 
-    break;
+        break;
         
         case 'listMembers':
 
                 $listMembers = Dashboard::login();
                 $listMembers = $listMembers->listMembers($id, $_POST['idOwner']);
                 $combos = $listMembers;
+
+        break;
+
+
+        case 'tblHealth_indicator_admin':
+                
+            $loadHealth_indicator_admin = Dashboard::login();
+            $tblHealth_indicator_admin = $loadHealth_indicator_admin->tblHealth_indicator_admin();
+            $combos = $tblHealth_indicator_admin;
+
+        break;
+
+        case 'tblHealth_indicator_admin_detail':
+                
+            $loadHealth_indicator_admin = Dashboard::login();
+            $tblHealth_indicator_admin_detail = $loadHealth_indicator_admin->tblHealth_indicator_admin_detail($id);
+            $combos = $tblHealth_indicator_admin_detail;
+
+        break;
+
+        case 'tblHealth_indicator_member':
+
+            $loadHealth_indicator_member = Dashboard::login();
+            $tblHealth_indicator_member = $loadHealth_indicator_member->tblHealth_indicator_member($id);
+            $combos = $tblHealth_indicator_member;
+
+        break;
+
+        case 'tblHealth_indicator_owner':
+
+            $loadHealth_indicator_owner = Dashboard::login();
+            $tblHealth_indicator_owner = $loadHealth_indicator_owner->tblHealth_indicator_owner($id);
+            $combos = $tblHealth_indicator_owner;
+
+        break;
+
+        case 'addHealthIndicator':
+
+            $addHealthIndicator = Dashboard::login();
+            $healthIndicator = $addHealthIndicator->addHealthIndicator($id,$_POST['familycore_id'],$_POST['workout'],$_POST['heart_rate'],$_POST['blood_pressure'],$_POST['distance_in_km'],$_POST['burned_calories'],$_POST['weight_in_kg'],$_POST['height_in_cm'],$_POST['blood_oxygen_saturation'],$_POST['vaccines']);
+            $combos = $healthIndicator;
+
+        break;
+
+        case 'addHealthIndicatorMember':
+
+            $addHealthIndicator = Dashboard::login();
+            $healthIndicator = $addHealthIndicator->addHealthIndicatorMember($id,$_POST['idMember'], $_POST['familycore_id'],$_POST['workout'],$_POST['heart_rate'],$_POST['blood_pressure'],$_POST['distance_in_km'],$_POST['burned_calories'],$_POST['weight_in_kg'],$_POST['height_in_cm'],$_POST['blood_oxygen_saturation'],$_POST['vaccines']);
+            $combos = $healthIndicator;
+
+        break;
+
+        case 'listWorkouts':
+
+            $listWorkouts = Dashboard::login();
+            $listWorkouts = $listWorkouts->listWorkouts();
+            $combos = $listWorkouts;
 
         break;
 

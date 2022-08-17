@@ -42,7 +42,7 @@
                 CASE 
                     WHEN u.role_id = 1 THEN 'Administrador'
                     WHEN u.role_id = 2 THEN 'Responsable de Familia'
-                    WHEN u.role_id = 3 THEN 'Usuario'
+                    WHEN u.role_id = 3 THEN 'Miembro de Familia'
                     ELSE 'Sin Rol'
                 END AS 'ROL',
                 f.name as 'NUCLEO FAMILIAR',
@@ -752,6 +752,219 @@
             } 
         }
 
+        public function tblHealth_indicator_admin(){
+            try {
+                $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    h.appoinment_date as 'Fecha de registro', 
+                    w.workout_name as 'Ejercicio',
+                    h.heart_rate as 'Frecuencia cardiaca',
+                    h.blood_pressure as 'Presion arterial'
+                    from health_indicator h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join workout w
+                    on h.workout = w.id";
+                    $query = $this->dbh->prepare($sql);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+        }
+
+
+        public function tblHealth_indicator_admin_detail($id)
+        {
+                
+                try {
+                    
+                    $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    u.birthdate as 'Fecha de nacimiento',
+                    h.appoinment_date as 'Fecha de registro', 
+                    w.workout_name as 'Ejercicio',
+                    h.heart_rate as 'Frecuencia cardiaca',
+                    h.blood_pressure as 'Presion arterial',
+                    h.distance_in_km as 'Distancia en Km',
+                    h.burned_calories as 'Calorias quemadas',
+                    h.weight_in_kg as 'Peso en Kg',
+                    h.height_in_cm as 'Altura en cm',
+                    h.blood_oxygen_saturation as 'Saturacion de oxigeno',
+                    h.vaccines as 'Vacunas',
+                    f.name as 'Nucleo Familiar',
+                    CASE
+                        when h.id_owner is null THEN 'No'
+                        else 'Si'
+                    END as '¿Lo registro el responsable de la familia?'
+                    from health_indicator h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join workout w
+                    on h.workout = w.id
+                    inner join family_core f
+                    on h.family_core = f.id
+                    where h.id = ?";
+                    $query = $this->dbh->prepare($sql);
+                    $query->bindParam(1, $id);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+                
+        }
+
+        public function tblHealth_indicator_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                w.workout_name as 'Ejercicio',
+                h.heart_rate as 'Frecuencia cardiaca',
+                h.blood_pressure as 'Presion arterial'
+                from health_indicator h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join workout w
+                on h.workout = w.id
+                where h.id_user = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function tblHealth_indicator_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                w.workout_name as 'Ejercicio',
+                h.heart_rate as 'Frecuencia cardiaca',
+                h.blood_pressure as 'Presion arterial'
+                from health_indicator h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join workout w
+                on h.workout = w.id
+                where h.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function listWorkouts()
+        {
+            try {
+                    
+                $sql = "SELECT id, workout_name from workout";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addHealthIndicator($id,$familycore_id,$workout,$heart_rate,$blood_pressure,$distance_in_km,$burned_calories,$weight_in_kg,$height_in_cm,$blood_oxygen_saturation,$vaccines)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO health_indicator (id_user, appoinment_date, workout, heart_rate, blood_pressure, distance_in_km, burned_calories, weight_in_kg, height_in_cm, blood_oxygen_saturation, vaccines,family_core) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $workout);
+                $query->bindParam(4, $heart_rate);
+                $query->bindParam(5, $blood_pressure);
+                $query->bindParam(6, $distance_in_km);
+                $query->bindParam(7, $burned_calories);
+                $query->bindParam(8, $weight_in_kg);
+                $query->bindParam(9, $height_in_cm);
+                $query->bindParam(10, $blood_oxygen_saturation);
+                $query->bindParam(11, $vaccines);
+                $query->bindParam(12, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function addHealthIndicatorMember($id,$idMember,$familycore_id,$workout,$heart_rate,$blood_pressure,$distance_in_km,$burned_calories,$weight_in_kg,$height_in_cm,$blood_oxygen_saturation,$vaccines)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO health_indicator (id_user, appoinment_date, workout, heart_rate, blood_pressure, distance_in_km, burned_calories, weight_in_kg, height_in_cm, blood_oxygen_saturation, vaccines,id_owner,family_core) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $workout);
+                $query->bindParam(4, $heart_rate);
+                $query->bindParam(5, $blood_pressure);
+                $query->bindParam(6, $distance_in_km);
+                $query->bindParam(7, $burned_calories);
+                $query->bindParam(8, $weight_in_kg);
+                $query->bindParam(9, $height_in_cm);
+                $query->bindParam(10, $blood_oxygen_saturation);
+                $query->bindParam(11, $vaccines);
+                $query->bindParam(12, $id);
+                $query->bindParam(13, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
 
 
         

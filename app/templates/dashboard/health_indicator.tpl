@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/health_condition.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/health_indicator.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -58,7 +58,7 @@
         </li>
         <!--{/if}-->
         <li class="nav-item">
-          <a class="nav-link active" href="./health_condition">
+          <a class="nav-link " href="./health_condition">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-ambulance text-info text-sm opacity-10"></i>
             </div>
@@ -66,7 +66,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./health_indicator">
+          <a class="nav-link active" href="./health_indicator">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-check-bold text-info text-sm opacity-10"></i>
             </div>
@@ -154,7 +154,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Estado de Salud</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Indicadores de Salud</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -287,23 +287,46 @@
                         <form id="formAgregar" name="formAgregar" method="POST" enctype="multipart/form-data">
                           <div class="row">
                             <div class="col-6">
-                                <label for="txtNombre">Tipo de Examén de Laboratotio</label>
-                                <select class="form-control" id="selLabType" name="selLabType">
+                                <label for="txtNombre">Ejercicio</label>
+                                <select class="form-control" id="selWorkout" name="selWorkout">
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Archivo del Examén: <span style="color: red">*</span></label>
-                                <input type="file" name="lab_file_path" id="lab_file_path" class="form-control">                      
+                                <label class="fieldlabels">Ritmo cardiaco (Latidos/minuto): <span style="color: red">*</span></label>
+                                <input type="text" name="heart_rate" id="heart_rate" class="form-control" placeholder="80">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Enfermedades Comúnes:</label>
-                                <select class="form-control" id="selCommonDisease" name="selCommonDisease">
-                                </select>                            
+                                <label class="fieldlabels">Presión arterial: <span style="color: red">*</span></label>
+                                <input type="text" name="blood_pressure" id="blood_pressure" class="form-control" placeholder="120">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Enfermedad Particular:</label>
-                                <input class="form-control" type="text" name="particular_desease" placeholder="Escribe el nombre de la enfermedad" />        
+                              <label class="fieldlabels">Distancia recorrida (KM): <span style="color: red">*</span></label>
+                              <input type="text" name="distance_in_km" id="distance_in_km" class="form-control" placeholder="5">                      
                             </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Calorias quemadas: <span style="color: red">*</span></label>
+                              <input type="text" name="	burned_calories" id="burned_calories" class="form-control" placeholder="700">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Peso (KG): <span style="color: red">*</span></label>
+                              <input type="text" name="weight_in_kg" id="weight_in_kg" class="form-control" placeholder="65">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Estatura (CM): <span style="color: red">*</span></label>
+                              <input type="text" name="height_in_cm" id="height_in_cm" class="form-control" placeholder="175">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Saturación de oxigeno en la sangre:</label>
+                              <input type="text" name="blood_oxygen_saturation" id="blood_oxygen_saturation" class="form-control" placeholder="95">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Vacunas:</label>
+                              <input type="text" name="vaccines" id="vaccines" class="form-control" placeholder="Ej: Pfizer/Tétano/No">                      
+                            </div>
+
                           </div>
                         </form>
                     </div>
@@ -332,22 +355,44 @@
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label for="txtNombre">Tipo de Examén de Laboratotio</label>
-                                <select class="form-control" id="selLabType-member" name="selLabType-member">
+                                <label for="txtNombre">Ejercicio</label>
+                                <select class="form-control" id="selWorkout-member" name="selWorkout-member">
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Archivo del Examén: <span style="color: red">*</span></label>
-                                <input type="file" name="lab_file_path-member" id="lab_file_path-member" class="form-control">                      
+                                <label class="fieldlabels">Ritmo cardiaco (Latidos/minuto): <span style="color: red">*</span></label>
+                                <input type="text" name="heart_rate-member" id="heart_rate-member" class="form-control" placeholder="80">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Enfermedades Comúnes:</label>
-                                <select class="form-control" id="selCommonDisease-member" name="selCommonDisease-member">
-                                </select>                            
+                                <label class="fieldlabels">Presión arterial: <span style="color: red">*</span></label>
+                                <input type="text" name="blood_pressure-member" id="blood_pressure-member" class="form-control" placeholder="120">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Enfermedad Particular:</label>
-                                <input class="form-control" type="text" name="particular_desease-member" placeholder="Escribe el nombre de la enfermedad" />        
+                              <label class="fieldlabels">Distancia recorrida (KM): <span style="color: red">*</span></label>
+                              <input type="text" name="distance_in_km-member" id="distance_in_km-member" class="form-control" placeholder="5">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Calorias quemadas: <span style="color: red">*</span></label>
+                              <input type="text" name="	burned_calories-member" id="burned_calories-member" class="form-control" placeholder="700">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Peso (KG): <span style="color: red">*</span></label>
+                              <input type="text" name="weight_in_kg-member" id="weight_in_kg-member" class="form-control" placeholder="65">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Estatura (CM): <span style="color: red">*</span></label>
+                              <input type="text" name="height_in_cm-member" id="height_in_cm-member" class="form-control" placeholder="175">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Saturación de oxigeno en la sangre:</label>
+                              <input type="text" name="blood_oxygen_saturation-member" id="blood_oxygen_saturation-member" class="form-control" placeholder="95">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Vacunas:</label>
+                              <input type="text" name="vaccines-member" id="vaccines-member" class="form-control" placeholder="Ej: Pfizer/Tétano/No">                      
                             </div>
                           </div>
                         </form>
