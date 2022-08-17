@@ -302,6 +302,62 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
+        case 'tblMedicalCare_info_admin':
+                
+            $loadMedicalCare_info_admin = Dashboard::login();
+            $tblMedicalCare_info_admin = $loadMedicalCare_info_admin->tblMedicalCare_info_admin();
+            $combos = $tblMedicalCare_info_admin;
+
+        break;
+
+        case 'tblMedicalCare_info_admin_detail':
+                
+            $loadMedicalCare_info_admin = Dashboard::login();
+            $tblMedicalCare_info_admin_detail = $loadMedicalCare_info_admin->tblMedicalCare_info_admin_detail($id);
+            $combos = $tblMedicalCare_info_admin_detail;
+
+        break;
+
+        case 'tblMedicalCare_info_member':
+
+            $loadMedicalCare_info_member = Dashboard::login();
+            $tblMedicalCare_info_member = $loadMedicalCare_info_member->tblMedicalCare_info_member($id);
+            $combos = $tblMedicalCare_info_member;
+
+        break;
+
+        case 'tblMedicalCare_info_owner':
+
+            $loadMedicalCare_info_owner = Dashboard::login();
+            $tblMedicalCare_info_owner = $loadMedicalCare_info_owner->tblMedicalCare_info_owner($id);
+            $combos = $tblMedicalCare_info_owner;
+
+        break;
+
+        case 'addMedicalCareInfo':
+
+            $addMedicalCareInfo = Dashboard::login();
+            $medicalCareInfo = $addMedicalCareInfo->addMedicalCareInfo($id,$_POST['familycore_id'],$_POST['physician_type'],$_POST['medical_appointment'],$_POST['physician_name'],$_POST['observation']);
+            $combos = $medicalCareInfo;
+
+        break;
+
+        case 'addMedicalCareInfoMember':
+
+            $addMedicalCareInfo = Dashboard::login();
+            $medicalCareInfo = $addMedicalCareInfo->addMedicalCareInfoMember($id,$_POST['idMember'], $_POST['familycore_id'],$_POST['physician_type'],$_POST['medical_appointment'],$_POST['physician_name'],$_POST['observation']);
+            $combos = $medicalCareInfo;
+
+        break;
+
+        case 'listPhysician_type':
+
+            $listPhysician_type = Dashboard::login();
+            $listPhysician_type = $listPhysician_type->listPhysician_type();
+            $combos = $listPhysician_type;
+
+        break;
+
        
 
     }

@@ -966,6 +966,205 @@
 
         }
 
+        public function tblMedicalCare_info_admin()
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.medical_appointment as 'Fecha de atención'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblMedicalCare_info_admin_detail($id)
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.observation as 'Observación',
+                m.medical_appointment as 'Fecha de atención',
+                f.name as 'Nucleo Familiar',
+                CASE
+                    when m.id_owner is null THEN 'No'
+                    else 'Si'
+                    END as '¿Lo registro el responsable de la familia?'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id
+                inner join family_core f
+                on m.family_core = f.id
+                where m.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblMedicalCare_info_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.medical_appointment as 'Fecha de atención'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id
+                where m.user_id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblMedicalCare_info_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.medical_appointment as 'Fecha de atención'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id
+                where m.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function addMedicalCareInfo($id,$familycore_id,$physician_type,$medical_appointment,$physician_name,$observation)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO medical_care_info (id_user,family_core,appoinment_date,physician_type,medical_appointment,physician_name,observation) VALUES (?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $familycore_id);
+                $query->bindParam(3, $appoinment_date);
+                $query->bindParam(4, $physician_type);
+                $query->bindParam(5, $medical_appointment);
+                $query->bindParam(6, $physician_name);
+                $query->bindParam(7, $observation);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addMedicalCareInfoMember($id,$idMember,$familycore_id,$physician_type,$medical_appointment,$physician_name,$observation)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO medical_care_info (id_user,appoinment_date,physician_type,medical_appointment,physician_name,observation,id_owner,family_core) VALUES (?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $physician_type);
+                $query->bindParam(4, $medical_appointment);
+                $query->bindParam(5, $physician_name);
+                $query->bindParam(6, $observation);
+                $query->bindParam(7, $id);
+                $query->bindParam(8, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function listPhysician_type()
+        {
+            try {
+                    
+                $sql = "SELECT * FROM physician_type";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
 
         
         // public function editar_users($cedula,$nombre,$apellido,$correo,$pass)
