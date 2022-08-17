@@ -358,6 +358,62 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
+        case 'tblCondition_monitoring_admin':
+                
+            $loadCondition_monitoring_admin = Dashboard::login();
+            $tblCondition_monitoring_admin = $loadCondition_monitoring_admin->tblCondition_monitoring_admin();
+            $combos = $tblCondition_monitoring_admin;
+
+        break;
+
+        case 'tblCondition_monitoring_admin_detail':
+                
+            $loadCondition_monitoring_admin = Dashboard::login();
+            $tblCondition_monitoring_admin_detail = $loadCondition_monitoring_admin->tblCondition_monitoring_admin_detail($id);
+            $combos = $tblCondition_monitoring_admin_detail;
+
+        break;
+
+        case 'tblCondition_monitoring_member':
+
+            $loadCondition_monitoring_member = Dashboard::login();
+            $tblCondition_monitoring_member = $loadCondition_monitoring_member->tblCondition_monitoring_member($id);
+            $combos = $tblCondition_monitoring_member;
+
+        break;
+
+        case 'tblCondition_monitoring_owner':
+
+            $loadCondition_monitoring_owner = Dashboard::login();
+            $tblCondition_monitoring_owner = $loadCondition_monitoring_owner->tblCondition_monitoring_owner($id);
+            $combos = $tblCondition_monitoring_owner;
+
+        break;
+
+        case 'addConditionMonitoring':
+
+            $addConditionMonitoring = Dashboard::login();
+            $conditionMonitoring = $addConditionMonitoring->addConditionMonitoring($id,$_POST['familycore_id'],$_POST['condition_type'],$_POST['issue_date'],$_POST['diagnostic'],$_POST['treatment'],$_POST['evolution']);
+            $combos = $conditionMonitoring;
+
+        break;
+
+        case 'addConditionMonitoringMember':
+
+            $addConditionMonitoring = Dashboard::login();
+            $conditionMonitoring = $addConditionMonitoring->addConditionMonitoringMember($id,$_POST['idMember'], $_POST['familycore_id'],$_POST['condition_type'],$_POST['issue_date'],$_POST['diagnostic'],$_POST['treatment'],$_POST['evolution']);
+            $combos = $conditionMonitoring;
+
+        break;
+
+        case 'listConditionType':
+
+            $listCondition_type = Dashboard::login();
+            $listCondition_type = $listCondition_type->listConditionType();
+            $combos = $listCondition_type;
+
+        break;
+
        
 
     }

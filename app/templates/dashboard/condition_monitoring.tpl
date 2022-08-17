@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/medical_care_info.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/condition_monitoring.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -74,7 +74,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./medical_care_info">
+          <a class="nav-link " href="./medical_care_info">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-info text-sm opacity-10"></i>
             </div>
@@ -82,7 +82,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./condition_monitoring">
+          <a class="nav-link active" href="./condition_monitoring">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-user-run text-info text-sm opacity-10"></i>
             </div>
@@ -154,7 +154,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Controles con profesionales de la salud</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Seguimiento de Condiciones</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -194,16 +194,16 @@
           <div class="col-12">
             <div class="card mb-4">
               <div class="card-header pb-0">
-                <h6 class="text-center">Controles con profesionales de la salud</h6>
+                <h6 class="text-center">Seguimiento de Condiciones</h6>
               </div>
               <!--{if $role eq '2' or $role eq '3'}-->
               <div class="row">
                 <div class="col-6">
-                    <button id="btnModalAgregar" style="width:50%;float:left;" type="button" class="btn btn-success" >+ Registrar control</button>
+                    <button id="btnModalAgregar" style="width:50%;float:left;" type="button" class="btn btn-success" >+ Registrar seguimiento</button>
                 </div>
                 <!--{if $role eq '2'}-->
                 <div class="col-6">
-                    <button id="btnModalAgregarMember" style="width:70%;float:right;" type="button" class="btn btn-success" >+ Registrar control de un Familiar</button>
+                    <button id="btnModalAgregarMember" style="width:70%;float:right;" type="button" class="btn btn-success" >+ Registrar seguimiento de un Familiar</button>
                 </div>
                 </div>
                 <!--{/if}-->
@@ -259,7 +259,7 @@
           <div class="modal-dialog  modal-lg">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Detalles del control</h3>
+                          <h3 style="display:block;margin:auto;">Detalles del seguimiento</h3>
                       </div>
                       <div class="modal-body">
                           <div id="divTblDetalleSolicitud" class="form-group">
@@ -281,27 +281,31 @@
         <div class="modal-dialog  modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 style="display:block;margin:auto;">Registrar Control Médico</h3>
+                        <h3 style="display:block;margin:auto;">Registrar Seguimiento</h3>
                     </div>
                     <div class="modal-body">
                         <form id="formAgregar" name="formAgregar" method="POST" enctype="multipart/form-data">
                           <div class="row">
                             <div class="col-6">
-                                <label for="txtNombre">Tipo de atención:</label>
-                                <select class="form-control" id="selPhysician_type" name="selPhysician_type">
+                                <label for="txtNombre">Tipo de condición:</label>
+                                <select class="form-control" id="selCondition_type" name="selCondition_type">
                                 </select>
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Fecha del control: <span style="color: red">*</span></label>
-                                <input type="date" name="medical_appointment" id="medical_appointment" class="form-control" >                      
+                                <label class="fieldlabels">Fecha de la condición: <span style="color: red">*</span></label>
+                                <input type="date" name="issue_date" id="issue_date" class="form-control" >                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Nombre del profesional: <span style="color: red">*</span></label>
-                                <input type="text" name="physician_name" id="physician_name" class="form-control" placeholder="Ej. Juan Esteban Rivera">                      
+                                <label class="fieldlabels">Diagnostico: <span style="color: red">*</span></label>
+                                <input type="text" name="diagnostic" id="diagnostic" class="form-control" placeholder="Ej. Lesión de hombro">                      
                             </div>
                             <div class="col-6">
-                              <label class="fieldlabels">Observaciones del profesional:</label>
-                              <input type="text" name="observation" id="observation" class="form-control" placeholder="Ej. Estado de salud OK">                      
+                              <label class="fieldlabels">Tratamiento: <span style="color: red">*</span></label>
+                              <input type="text" name="treatment" id="treatment" class="form-control" placeholder="Ej. Guardar reposo">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Evolución: <span style="color: red">*</span></label>
+                              <input type="text" name="evolution" id="evolution" class="form-control" placeholder="Ej. Recupera movilidad del hombro">                      
                             </div>
                           </div>
                         </form>
@@ -320,7 +324,7 @@
         <div class="modal-dialog  modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 style="display:block;margin:auto;">Registrar control de un familiar</h3>
+                        <h3 style="display:block;margin:auto;">Registrar seguimiento de un familiar</h3>
                     </div>
                     <div class="modal-body">
                         <form id="formAgregarMember" name="formAgregarMember" method="POST" enctype="multipart/form-data">
@@ -331,23 +335,27 @@
                                 </select>
                             </div>
                             <div class="col-6">
-                              <label for="txtNombre">Tipo de atención:</label>
-                              <select class="form-control" id="selPhysician_type-member" name="selPhysician_type-member">
+                              <label for="txtNombre">Tipo de condición:</label>
+                              <select class="form-control" id="selCondition_type-member" name="selCondition_type-member">
                               </select>
                           </div>
                           <div class="col-6">
-                              <label class="fieldlabels">Fecha del control: <span style="color: red">*</span></label>
-                              <input type="date" name="medical_appointment-member" id="medical_appointment-member" class="form-control" >                      
+                              <label class="fieldlabels">Fecha de la condición: <span style="color: red">*</span></label>
+                              <input type="date" name="issue_date-member" id="issue_date-member" class="form-control" >                      
                           </div>
                           <div class="col-6">
-                              <label class="fieldlabels">Nombre del profesional: <span style="color: red">*</span></label>
-                              <input type="text" name="physician_name-member" id="physician_name-member" class="form-control" placeholder="Ej. Juan Esteban Rivera">                      
+                              <label class="fieldlabels">Diagnostico: <span style="color: red">*</span></label>
+                              <input type="text" name="diagnostic-member" id="diagnostic-member" class="form-control" placeholder="Ej. Lesión de hombro">                      
                           </div>
                           <div class="col-6">
-                            <label class="fieldlabels">Observaciones del profesional:</label>
-                            <input type="text" name="observation-member" id="observation-member" class="form-control" placeholder="Ej. Estado de salud OK">                      
+                            <label class="fieldlabels">Tratamiento: <span style="color: red">*</span></label>
+                            <input type="text" name="treatment-member" id="treatment-member" class="form-control" placeholder="Ej. Guardar reposo">                      
                           </div>
+                          <div class="col-6">
+                            <label class="fieldlabels">Evolución: <span style="color: red">*</span></label>
+                            <input type="text" name="evolution-member" id="evolution-member" class="form-control" placeholder="Ej. Recupera movilidad del hombro">                      
                           </div>
+                        </div>
                         </form>
                     </div>
                     <div class="modal-footer">

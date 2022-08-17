@@ -1165,6 +1165,204 @@
             } 
         }
 
+        public function tblCondition_monitoring_admin()
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.issue_date as 'Fecha de condición'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join condition_type t
+                on c.condition_type = t.id";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+        
+
+        public function tblCondition_monitoring_admin_detail($id)
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.treatment as 'Tratamiento',
+                c.evolution as 'Evolución',
+                c.issue_date as 'Fecha de condición',
+                f.name as 'Nucleo Familiar'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join family_core f
+                on c.family_core = f.id
+                inner join condition_type t
+                on c.condition_type = t.id
+                where c.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblCondition_monitoring_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.issue_date as 'Fecha de condición'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join condition_type t
+                on c.condition_type = t.id
+                where c.id_user = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblCondition_monitoring_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.issue_date as 'Fecha de condición'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join condition_type t
+                on c.condition_type = t.id
+                where c.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function addConditionMonitoring($id,$familycore_id,$condition_type,$issue_date,$diagnostic,$treatment,$evolution)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO condition_monitoring (id_user,appoinment_date,condition_type,issue_date,diagnostic,treatment,evolution,family_core) VALUES (?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $condition_type);
+                $query->bindParam(4, $issue_date);
+                $query->bindParam(5, $diagnostic);
+                $query->bindParam(6, $treatment);
+                $query->bindParam(7, $evolution);
+                $query->bindParam(8, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addConditionMonitoringMember($id,$idMember, $familycore_id,$condition_type,$issue_date,$diagnostic,$treatment,$evolution)       
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO condition_monitoring (id_user,appoinment_date,condition_type,issue_date,diagnostic,treatment,evolution,id_owner,family_core) VALUES (?,?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $condition_type);
+                $query->bindParam(4, $issue_date);
+                $query->bindParam(5, $diagnostic);
+                $query->bindParam(6, $treatment);
+                $query->bindParam(7, $evolution);
+                $query->bindParam(8, $id);
+                $query->bindParam(9, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function listConditionType()
+        {
+            try {
+                    
+                $sql = "SELECT * FROM condition_type";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
 
         
         // public function editar_users($cedula,$nombre,$apellido,$correo,$pass)
