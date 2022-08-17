@@ -80,7 +80,7 @@ p {
  
 #formulario .action-button {
     width: 100px;
-    background-image: linear-gradient(to right, #000046 0%, #1CB5E0  51%, #000046  100%);
+    background-image: linear-gradient(to right, #000046 0%, #000046  51%, #000046  100%);
     margin: 10px;
     padding: 15px 45px;
     text-align: center;
@@ -110,7 +110,7 @@ p {
 
 #formulario .action-button-previous {
     width: 100px;
-    background-image: linear-gradient(to right, #16222A 0%, #3A6073  51%, #16222A  100%);
+    background-image: linear-gradient(to right, #000046 0%, #000046  51%, #000046  100%);
     margin: 10px;
     padding: 15px 45px;
     text-align: center;

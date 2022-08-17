@@ -13,7 +13,7 @@
       <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <img src="<!--{$APP_IMG}-->access/login.svg" alt="Image" class="img-fluid">
+          <img src="<!--{$APP_IMG}-->access/login_2.jpg" alt="Image" class="img-fluid" style="margin-top: 65px; margin-left: 45px;">
         </div>
         <div class="col-md-6 contents">
           <div class="row justify-content-center">
