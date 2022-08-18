@@ -163,8 +163,10 @@
               <div class="card-header pb-0">
                 <h6 class="text-center">Reportes</h6>
               </div>
-              <h6 class="text-center">Reportes</h6>
-
+              <form class="form-inline" method="post" action="crear_pdf.php">
+                <button type="submit" id="pdf" name="generate_pdf" class="btn btn-primary"><i class="fa fa-pdf" aria-hidden="true"></i>
+                Exportar PDF</button>
+                </form>
 
             </div>
           </div>
