@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/role.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/reports.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -33,7 +33,7 @@
         <!--{/if}-->
         <!--{if $role eq '1'}-->
         <li class="nav-item">
-          <a class="nav-link " href="./user">
+          <a class="nav-link" href="./user">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-circle-08 text-success text-sm opacity-10"></i>
             </div>
@@ -49,7 +49,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./role">
+          <a class="nav-link " href="./role">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-badge text-success text-sm opacity-10"></i>
             </div>
@@ -90,7 +90,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./reports">
+          <a class="nav-link active" href="./reports">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
             </div>
@@ -115,12 +115,13 @@
   </aside>
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
+    <input type="hidden" name="familycore_id" id="familycore_id" value="<!--{$familycore_id}-->">
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Roles</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Reportes</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -160,22 +161,11 @@
           <div class="col-12">
             <div class="card mb-4">
               <div class="card-header pb-0">
-                <h6 class="text-center">Tabla Roles</h6>
+                <h6 class="text-center">Reportes</h6>
               </div>
-              <button id="btnModalAgregar" style="width:20%;display:block;margin:auto;" type="button" class="btn btn-success" >+ Nuevo Rol</button>
+              <h6 class="text-center">Reportes</h6>
 
-              <div class="card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
-                    <div id="divTblSolicitudes" class="form-group"> <!--style="display:none"-->
-                        <div class="table-responsive">
-                            <table id="tblSolicitudes" class="table align-items-center mb-0" name="tblSolicitudes" style="width:100%">
-                            <!--<table class="tablesorter text-center" id="tblSolicitudes" name="tblSolicitudes">-->
-                            <!--<table class="table table-striped table-hover table-bordered text-center" id="tblSolicitudes" name="tblSolicitudes">-->
-                            </table>
-                        </div>
-                    </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -184,7 +174,7 @@
           <div class="modal-dialog  modal-lg">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Detalles del rol</h3>
+                          <h3 style="display:block;margin:auto;">Detalles del control</h3>
                       </div>
                       <div class="modal-body">
                           <div id="divTblDetalleSolicitud" class="form-group">
@@ -195,42 +185,94 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button id="btnModalInactivar" type="button" class="btn btn-danger" >Inactivar</button>
                           <button id="btnModalCerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                       </div>
                   </div>
               </div>
           </div>
-        </div>
+      </div>
 
-        <div id="modal-agregar" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-          <div class="modal-dialog  modal-lg">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Crear Rol</h3>
-                      </div>
-                      <div class="modal-body">
-                          <form id="formAgregar" name="formAgregar" method="POST">
-                            <div class="row">
-                              <div class="col-6">
-                                  <label for="txtNombre">Nombre</label>
-                                  <input type="text" class="form-control" id="txtNombre" name="txtNombre" placeholder="Nombre del rol">
-                              </div>
-                              <div class="col-6">
-                                  <label for="txtEstado">Estado</label>
-                                  <input type="text" class="form-control" id="state" name="state" value="Activo" disabled="true">
-                              </div>
+      <div id="modal-agregar" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 style="display:block;margin:auto;">Registrar Control Médico</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregar" name="formAgregar" method="POST" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-6">
+                                <label for="txtNombre">Tipo de atención:</label>
+                                <select class="form-control" id="selPhysician_type" name="selPhysician_type">
+                                </select>
                             </div>
-                          </form>
-                      </div>
-                      <div class="modal-footer">
-                          <button id="btnModalAdd" type="button" class="btn btn-success" >Crear</button>
-                          <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Fecha del control: <span style="color: red">*</span></label>
+                                <input type="date" name="medical_appointment" id="medical_appointment" class="form-control" >                      
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Nombre del profesional: <span style="color: red">*</span></label>
+                                <input type="text" name="physician_name" id="physician_name" class="form-control" placeholder="Ej. Juan Esteban Rivera">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Observaciones del profesional:</label>
+                              <input type="text" name="observation" id="observation" class="form-control" placeholder="Ej. Estado de salud OK">                      
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" id="btnModalAdd" class="btn btn-success" name="btnModalAdd" value="Registrar" />
+                        <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
         </div>
+      </div>
+
+
+      <div id="modal-agregar-member" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 style="display:block;margin:auto;">Registrar control de un familiar</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregarMember" name="formAgregarMember" method="POST" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-6">
+                                <label for="txtNombre">Selecciona el familiar</label>
+                                <select class="form-control" id="selMember" name="selMember">
+                                </select>
+                            </div>
+                            <div class="col-6">
+                              <label for="txtNombre">Tipo de atención:</label>
+                              <select class="form-control" id="selPhysician_type-member" name="selPhysician_type-member">
+                              </select>
+                          </div>
+                          <div class="col-6">
+                              <label class="fieldlabels">Fecha del control: <span style="color: red">*</span></label>
+                              <input type="date" name="medical_appointment-member" id="medical_appointment-member" class="form-control" >                      
+                          </div>
+                          <div class="col-6">
+                              <label class="fieldlabels">Nombre del profesional: <span style="color: red">*</span></label>
+                              <input type="text" name="physician_name-member" id="physician_name-member" class="form-control" placeholder="Ej. Juan Esteban Rivera">                      
+                          </div>
+                          <div class="col-6">
+                            <label class="fieldlabels">Observaciones del profesional:</label>
+                            <input type="text" name="observation-member" id="observation-member" class="form-control" placeholder="Ej. Estado de salud OK">                      
+                          </div>
+                          </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" id="btnModalAdd-member" class="btn btn-success" name="btnModalAdd-member" value="Registrar" />
+                        <button id="btnModalClose-member" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 
 
     </div>
