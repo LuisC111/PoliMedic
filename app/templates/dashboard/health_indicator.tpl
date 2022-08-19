@@ -168,11 +168,11 @@
               <!--{if $role eq '2' or $role eq '3'}-->
               <div class="row">
                 <div class="col-6">
-                    <button id="btnModalAgregar" style="width:50%;float:left;" type="button" class="btn btn-success" >+ Registrar tu Condición de Salud</button>
+                    <button id="btnModalAgregar" style="width:50%;float:left;" type="button" class="btn btn-success" >+ Registrar tus Indicadores de Salud</button>
                 </div>
                 <!--{if $role eq '2'}-->
                 <div class="col-6">
-                    <button id="btnModalAgregarMember" style="width:70%;float:right;" type="button" class="btn btn-success" >+ Registrar la Condición de Salud de un Familiar</button>
+                    <button id="btnModalAgregarMember" style="width:70%;float:right;" type="button" class="btn btn-success" >+ Registrar los Indicadores de Salud de un Familiar</button>
                 </div>
                 </div>
                 <!--{/if}-->
