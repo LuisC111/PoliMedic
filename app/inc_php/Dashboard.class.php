@@ -1364,6 +1364,41 @@
             } 
         }
 
+        public function loadUser($id)
+        {
+            try {
+                    
+                $sql = "SELECT 
+                u.email, 
+                u.firstname, 
+                u.lastname, 
+                u.gender, 
+                u.birthdate,
+                u.type,
+                u.identification_type,
+                u.identification_number,
+                u.creation_date,
+                u.modification_date,
+                u.user,
+                f.name
+                FROM user u
+                INNER JOIN family_core f
+                ON u.familycore_id = f.id
+                WHERE u.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
         
         // public function editar_users($cedula,$nombre,$apellido,$correo,$pass)
         // {

@@ -414,6 +414,14 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
+        case 'loadUser':
+
+            $loadUser = Dashboard::login();
+            $loadUser = $loadUser->loadUser($id);
+            $combos = $loadUser;
+
+        break;
+
        
 
     }
