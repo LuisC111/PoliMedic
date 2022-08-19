@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/familyUser.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/condition_monitoring.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -23,7 +23,7 @@
         </li>
         <!--{if $role eq '2' or $role eq '3'}-->
         <li class="nav-item">
-          <a class="nav-link active" href="./familyUser">
+          <a class="nav-link " href="./familyUser">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-vector text-success text-sm opacity-10"></i>
             </div>
@@ -82,7 +82,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./condition_monitoring">
+          <a class="nav-link active" href="./condition_monitoring">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-user-run text-info text-sm opacity-10"></i>
             </div>
@@ -123,7 +123,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Nucleos Familiares</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Seguimiento de Condiciones</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -163,23 +163,63 @@
           <div class="col-12">
             <div class="card mb-4">
               <div class="card-header pb-0">
-                <h6 class="text-center">Tu Nucleo Familiar</h6>
+                <h6 class="text-center">Seguimiento de Condiciones</h6>
               </div>
-              <!--{if $role eq '2'}-->
-              <button id="btnModalAgregar" style="width:20%;display:block;margin:auto;" type="button" class="btn btn-success" >+ Agregar Miembro</button>
+              <!--{if $role eq '2' or $role eq '3'}-->
+              <div class="row">
+                <div class="col-6">
+                    <button id="btnModalAgregar" style="width:50%;float:left;" type="button" class="btn btn-success" >+ Registrar seguimiento</button>
+                </div>
+                <!--{if $role eq '2'}-->
+                <div class="col-6">
+                    <button id="btnModalAgregarMember" style="width:70%;float:right;" type="button" class="btn btn-success" >+ Registrar seguimiento de un Familiar</button>
+                </div>
+                </div>
+                <!--{/if}-->
               <!--{/if}-->
+              <input type="hidden" name="hidIdMember" id="hidIdMember" value="<!--{$id}-->" />
+              <input type="hidden" name="hidIdFamily" id="hidIdFamily" value="<!--{$familycore_id}-->" />
+
+              <!--{if $role eq '1'}-->
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
                     <div id="divTblSolicitudes" class="form-group"> <!--style="display:none"-->
                         <div class="table-responsive">
                             <table id="tblSolicitudes" class="table align-items-center mb-0" name="tblSolicitudes" style="width:100%">
-                            <!--<table class="tablesorter text-center" id="tblSolicitudes" name="tblSolicitudes">-->
-                            <!--<table class="table table-striped table-hover table-bordered text-center" id="tblSolicitudes" name="tblSolicitudes">-->
                             </table>
                         </div>
                     </div>
                 </div>
               </div>
+              <!--{/if}-->
+
+            <!--{if $role eq '2'}-->
+            <div class="card-body pb-2">
+                <div class="table-responsive p-0">
+                    <div id="divTblSolicitudesOwner" class="form-group"> <!--style="display:none"-->
+                        <div class="table-responsive">
+                            <table id="tblSolicitudesOwner" class="table align-items-center mb-0" name="tblSolicitudesOwner" style="width:100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--{/if}-->
+
+            <!--{if $role eq '3'}-->
+            <div class="card-body pb-2">
+                <div class="table-responsive p-0">
+                    <div id="divTblSolicitudesMember" class="form-group"> <!--style="display:none"-->
+                        <div class="table-responsive">
+                            <table id="tblSolicitudesMember" class="table align-items-center mb-0" name="tblSolicitudesMember" style="width:100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--{/if}-->
+
+
             </div>
           </div>
         </div>
@@ -188,7 +228,7 @@
           <div class="modal-dialog  modal-lg">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Detalles del miembro</h3>
+                          <h3 style="display:block;margin:auto;">Detalles del seguimiento</h3>
                       </div>
                       <div class="modal-body">
                           <div id="divTblDetalleSolicitud" class="form-group">
@@ -210,56 +250,86 @@
         <div class="modal-dialog  modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 style="display:block;margin:auto;">Crear Miembro</h3>
+                        <h3 style="display:block;margin:auto;">Registrar Seguimiento</h3>
                     </div>
                     <div class="modal-body">
-                        <form id="formAgregar" name="formAgregar" method="POST">
+                        <form id="formAgregar" name="formAgregar" method="POST" enctype="multipart/form-data">
                           <div class="row">
                             <div class="col-6">
-                                <label for="txtNombre">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico del usuario">
+                                <label for="txtNombre">Tipo de condición:</label>
+                                <select class="form-control" id="selCondition_type" name="selCondition_type">
+                                </select>
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Tipo de documento: <span style="color: red">*</span></label>
-                                <select class="form-control" name="identification_type">
-                                    <option value="Cedula de ciudadanía">Cedula de ciudadanía</option>
-                                    <option value="Cedula de extanjería">Cedula de extanjería</option>
-                                    <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                                    <option value="NUIP">NUIP</option>
-                                    <option value="Pasaporte">Pasaporte</option>
-                                    <option value="Permiso especial de Permanencia">Permiso especial de Permanencia</option>
-                                  </select>                              
+                                <label class="fieldlabels">Fecha de la condición: <span style="color: red">*</span></label>
+                                <input type="date" name="issue_date" id="issue_date" class="form-control" >                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Número de documento: <span style="color: red">*</span></label>
-                                <input class="form-control" type="number" name="identification_number" placeholder="Digita tu número de documento" />                
+                                <label class="fieldlabels">Diagnostico: <span style="color: red">*</span></label>
+                                <input type="text" name="diagnostic" id="diagnostic" class="form-control" placeholder="Ej. Lesión de hombro">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Nombre(s): <span style="color: red">*</span></label>
-                                <input class="form-control" type="text" name="firstname" placeholder="Escribe tu nombre" />        
+                              <label class="fieldlabels">Tratamiento: <span style="color: red">*</span></label>
+                              <input type="text" name="treatment" id="treatment" class="form-control" placeholder="Ej. Guardar reposo">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Apellidos(s): <span style="color: red">*</span></label>
-                                <input class="form-control" type="text" name="lastname" placeholder="Escribe tu apellido" />        
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Genero: <span style="color: red">*</span></label>
-                                <select class="form-control" name="gender">
-                                    <option value="Femenino">Femenino</option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="No Binario">No Binario</option>
-                                  </select>          
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Fecha de nacimiento: <span style="color: red">*</span></label>
-                                <input class="form-control" type="date" name="birthdate"  />
+                              <label class="fieldlabels">Evolución: <span style="color: red">*</span></label>
+                              <input type="text" name="evolution" id="evolution" class="form-control" placeholder="Ej. Recupera movilidad del hombro">                      
                             </div>
                           </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnModalAdd" type="button" class="btn btn-success" >Crear</button>
+                        <input type="submit" id="btnModalAdd" class="btn btn-success" name="btnModalAdd" value="Registrar" />
                         <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+      <div id="modal-agregar-member" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 style="display:block;margin:auto;">Registrar seguimiento de un familiar</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregarMember" name="formAgregarMember" method="POST" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-6">
+                                <label for="txtNombre">Selecciona el familiar</label>
+                                <select class="form-control" id="selMember" name="selMember">
+                                </select>
+                            </div>
+                            <div class="col-6">
+                              <label for="txtNombre">Tipo de condición:</label>
+                              <select class="form-control" id="selCondition_type-member" name="selCondition_type-member">
+                              </select>
+                          </div>
+                          <div class="col-6">
+                              <label class="fieldlabels">Fecha de la condición: <span style="color: red">*</span></label>
+                              <input type="date" name="issue_date-member" id="issue_date-member" class="form-control" >                      
+                          </div>
+                          <div class="col-6">
+                              <label class="fieldlabels">Diagnostico: <span style="color: red">*</span></label>
+                              <input type="text" name="diagnostic-member" id="diagnostic-member" class="form-control" placeholder="Ej. Lesión de hombro">                      
+                          </div>
+                          <div class="col-6">
+                            <label class="fieldlabels">Tratamiento: <span style="color: red">*</span></label>
+                            <input type="text" name="treatment-member" id="treatment-member" class="form-control" placeholder="Ej. Guardar reposo">                      
+                          </div>
+                          <div class="col-6">
+                            <label class="fieldlabels">Evolución: <span style="color: red">*</span></label>
+                            <input type="text" name="evolution-member" id="evolution-member" class="form-control" placeholder="Ej. Recupera movilidad del hombro">                      
+                          </div>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" id="btnModalAdd-member" class="btn btn-success" name="btnModalAdd-member" value="Registrar" />
+                        <button id="btnModalClose-member" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>

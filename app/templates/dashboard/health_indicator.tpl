@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/familyUser.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/health_indicator.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -23,7 +23,7 @@
         </li>
         <!--{if $role eq '2' or $role eq '3'}-->
         <li class="nav-item">
-          <a class="nav-link active" href="./familyUser">
+          <a class="nav-link " href="./familyUser">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-vector text-success text-sm opacity-10"></i>
             </div>
@@ -66,7 +66,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./health_indicator">
+          <a class="nav-link active" href="./health_indicator">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-check-bold text-info text-sm opacity-10"></i>
             </div>
@@ -123,7 +123,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Nucleos Familiares</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Indicadores de Salud</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -163,23 +163,63 @@
           <div class="col-12">
             <div class="card mb-4">
               <div class="card-header pb-0">
-                <h6 class="text-center">Tu Nucleo Familiar</h6>
+                <h6 class="text-center">Condiciones de Salud</h6>
               </div>
-              <!--{if $role eq '2'}-->
-              <button id="btnModalAgregar" style="width:20%;display:block;margin:auto;" type="button" class="btn btn-success" >+ Agregar Miembro</button>
+              <!--{if $role eq '2' or $role eq '3'}-->
+              <div class="row">
+                <div class="col-6">
+                    <button id="btnModalAgregar" style="width:50%;float:left;" type="button" class="btn btn-success" >+ Registrar tu Condición de Salud</button>
+                </div>
+                <!--{if $role eq '2'}-->
+                <div class="col-6">
+                    <button id="btnModalAgregarMember" style="width:70%;float:right;" type="button" class="btn btn-success" >+ Registrar la Condición de Salud de un Familiar</button>
+                </div>
+                </div>
+                <!--{/if}-->
               <!--{/if}-->
+              <input type="hidden" name="hidIdMember" id="hidIdMember" value="<!--{$id}-->" />
+              <input type="hidden" name="hidIdFamily" id="hidIdFamily" value="<!--{$familycore_id}-->" />
+
+              <!--{if $role eq '1'}-->
               <div class="card-body px-0 pt-0 pb-2">
                 <div class="table-responsive p-0">
                     <div id="divTblSolicitudes" class="form-group"> <!--style="display:none"-->
                         <div class="table-responsive">
                             <table id="tblSolicitudes" class="table align-items-center mb-0" name="tblSolicitudes" style="width:100%">
-                            <!--<table class="tablesorter text-center" id="tblSolicitudes" name="tblSolicitudes">-->
-                            <!--<table class="table table-striped table-hover table-bordered text-center" id="tblSolicitudes" name="tblSolicitudes">-->
                             </table>
                         </div>
                     </div>
                 </div>
               </div>
+              <!--{/if}-->
+
+            <!--{if $role eq '2'}-->
+            <div class="card-body pb-2">
+                <div class="table-responsive p-0">
+                    <div id="divTblSolicitudesOwner" class="form-group"> <!--style="display:none"-->
+                        <div class="table-responsive">
+                            <table id="tblSolicitudesOwner" class="table align-items-center mb-0" name="tblSolicitudesOwner" style="width:100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--{/if}-->
+
+            <!--{if $role eq '3'}-->
+            <div class="card-body pb-2">
+                <div class="table-responsive p-0">
+                    <div id="divTblSolicitudesMember" class="form-group"> <!--style="display:none"-->
+                        <div class="table-responsive">
+                            <table id="tblSolicitudesMember" class="table align-items-center mb-0" name="tblSolicitudesMember" style="width:100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--{/if}-->
+
+
             </div>
           </div>
         </div>
@@ -188,7 +228,7 @@
           <div class="modal-dialog  modal-lg">
                   <div class="modal-content">
                       <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Detalles del miembro</h3>
+                          <h3 style="display:block;margin:auto;">Detalles del estado de Salud</h3>
                       </div>
                       <div class="modal-body">
                           <div id="divTblDetalleSolicitud" class="form-group">
@@ -210,56 +250,125 @@
         <div class="modal-dialog  modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 style="display:block;margin:auto;">Crear Miembro</h3>
+                        <h3 style="display:block;margin:auto;">Registrar Condición de Salud</h3>
                     </div>
                     <div class="modal-body">
-                        <form id="formAgregar" name="formAgregar" method="POST">
+                        <form id="formAgregar" name="formAgregar" method="POST" enctype="multipart/form-data">
                           <div class="row">
                             <div class="col-6">
-                                <label for="txtNombre">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico del usuario">
+                                <label for="txtNombre">Ejercicio</label>
+                                <select class="form-control" id="selWorkout" name="selWorkout">
+                                </select>
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Tipo de documento: <span style="color: red">*</span></label>
-                                <select class="form-control" name="identification_type">
-                                    <option value="Cedula de ciudadanía">Cedula de ciudadanía</option>
-                                    <option value="Cedula de extanjería">Cedula de extanjería</option>
-                                    <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                                    <option value="NUIP">NUIP</option>
-                                    <option value="Pasaporte">Pasaporte</option>
-                                    <option value="Permiso especial de Permanencia">Permiso especial de Permanencia</option>
-                                  </select>                              
+                                <label class="fieldlabels">Ritmo cardiaco (Latidos/minuto): <span style="color: red">*</span></label>
+                                <input type="text" name="heart_rate" id="heart_rate" class="form-control" placeholder="80">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Número de documento: <span style="color: red">*</span></label>
-                                <input class="form-control" type="number" name="identification_number" placeholder="Digita tu número de documento" />                
+                                <label class="fieldlabels">Presión arterial: <span style="color: red">*</span></label>
+                                <input type="text" name="blood_pressure" id="blood_pressure" class="form-control" placeholder="120">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Nombre(s): <span style="color: red">*</span></label>
-                                <input class="form-control" type="text" name="firstname" placeholder="Escribe tu nombre" />        
+                              <label class="fieldlabels">Distancia recorrida (KM): <span style="color: red">*</span></label>
+                              <input type="text" name="distance_in_km" id="distance_in_km" class="form-control" placeholder="5">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Calorias quemadas: <span style="color: red">*</span></label>
+                              <input type="text" name="	burned_calories" id="burned_calories" class="form-control" placeholder="700">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Peso (KG): <span style="color: red">*</span></label>
+                              <input type="text" name="weight_in_kg" id="weight_in_kg" class="form-control" placeholder="65">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Estatura (CM): <span style="color: red">*</span></label>
+                              <input type="text" name="height_in_cm" id="height_in_cm" class="form-control" placeholder="175">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Apellidos(s): <span style="color: red">*</span></label>
-                                <input class="form-control" type="text" name="lastname" placeholder="Escribe tu apellido" />        
+                              <label class="fieldlabels">Saturación de oxigeno en la sangre:</label>
+                              <input type="text" name="blood_oxygen_saturation" id="blood_oxygen_saturation" class="form-control" placeholder="95">                      
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Genero: <span style="color: red">*</span></label>
-                                <select class="form-control" name="gender">
-                                    <option value="Femenino">Femenino</option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="No Binario">No Binario</option>
-                                  </select>          
+                              <label class="fieldlabels">Vacunas:</label>
+                              <input type="text" name="vaccines" id="vaccines" class="form-control" placeholder="Ej: Pfizer/Tétano/No">                      
+                            </div>
+
+                          </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" id="btnModalAdd" class="btn btn-success" name="btnModalAdd" value="Registrar" />
+                        <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+      <div id="modal-agregar-member" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 style="display:block;margin:auto;">Registrar condición de salud de un familiar</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formAgregarMember" name="formAgregarMember" method="POST" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-6">
+                                <label for="txtNombre">Selecciona el familiar</label>
+                                <select class="form-control" id="selMember" name="selMember">
+                                </select>
                             </div>
                             <div class="col-6">
-                                <label class="fieldlabels">Fecha de nacimiento: <span style="color: red">*</span></label>
-                                <input class="form-control" type="date" name="birthdate"  />
+                                <label for="txtNombre">Ejercicio</label>
+                                <select class="form-control" id="selWorkout-member" name="selWorkout-member">
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Ritmo cardiaco (Latidos/minuto): <span style="color: red">*</span></label>
+                                <input type="text" name="heart_rate-member" id="heart_rate-member" class="form-control" placeholder="80">                      
+                            </div>
+                            <div class="col-6">
+                                <label class="fieldlabels">Presión arterial: <span style="color: red">*</span></label>
+                                <input type="text" name="blood_pressure-member" id="blood_pressure-member" class="form-control" placeholder="120">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Distancia recorrida (KM): <span style="color: red">*</span></label>
+                              <input type="text" name="distance_in_km-member" id="distance_in_km-member" class="form-control" placeholder="5">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Calorias quemadas: <span style="color: red">*</span></label>
+                              <input type="text" name="	burned_calories-member" id="burned_calories-member" class="form-control" placeholder="700">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Peso (KG): <span style="color: red">*</span></label>
+                              <input type="text" name="weight_in_kg-member" id="weight_in_kg-member" class="form-control" placeholder="65">                      
+                            </div>
+
+                            <div class="col-6">
+                              <label class="fieldlabels">Estatura (CM): <span style="color: red">*</span></label>
+                              <input type="text" name="height_in_cm-member" id="height_in_cm-member" class="form-control" placeholder="175">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Saturación de oxigeno en la sangre:</label>
+                              <input type="text" name="blood_oxygen_saturation-member" id="blood_oxygen_saturation-member" class="form-control" placeholder="95">                      
+                            </div>
+                            <div class="col-6">
+                              <label class="fieldlabels">Vacunas:</label>
+                              <input type="text" name="vaccines-member" id="vaccines-member" class="form-control" placeholder="Ej: Pfizer/Tétano/No">                      
                             </div>
                           </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="btnModalAdd" type="button" class="btn btn-success" >Crear</button>
-                        <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" id="btnModalAdd-member" class="btn btn-success" name="btnModalAdd-member" value="Registrar" />
+                        <button id="btnModalClose-member" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>

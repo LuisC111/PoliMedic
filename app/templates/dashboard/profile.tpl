@@ -1,4 +1,4 @@
-<script src="<!--{$APP_JS}-->dashboard/familyUser.js?v=<!--{$date}-->"></script>
+<script src="<!--{$APP_JS}-->dashboard/profile.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -23,7 +23,7 @@
         </li>
         <!--{if $role eq '2' or $role eq '3'}-->
         <li class="nav-item">
-          <a class="nav-link active" href="./familyUser">
+          <a class="nav-link " href="./familyUser">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-vector text-success text-sm opacity-10"></i>
             </div>
@@ -89,22 +89,12 @@
             <span class="nav-link-text ms-1">Seguimiento de condiciones</span>
           </a>
         </li>
-         <!--
-<li class="nav-item">
-          <a class="nav-link " href="./reports">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Reportes</span>
-          </a>
-        </li>
--->
  
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Página de Perfil</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./profile">
+          <a class="nav-link active" href="./profile">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
@@ -123,7 +113,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Páginas</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Nucleos Familiares</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Tu Perfil</li>
           </ol>
           <h6 class="font-weight-bolder text-white mb-0"><!--{$username}--></h6>
         </nav>
@@ -158,116 +148,182 @@
     </nav>
     <!-- End Navbar -->
    
-    <div class="container-fluid py-4">
-        <div class="row">
-          <div class="col-12">
-            <div class="card mb-4">
-              <div class="card-header pb-0">
-                <h6 class="text-center">Tu Nucleo Familiar</h6>
-              </div>
-              <!--{if $role eq '2'}-->
-              <button id="btnModalAgregar" style="width:20%;display:block;margin:auto;" type="button" class="btn btn-success" >+ Agregar Miembro</button>
-              <!--{/if}-->
-              <div class="card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
-                    <div id="divTblSolicitudes" class="form-group"> <!--style="display:none"-->
-                        <div class="table-responsive">
-                            <table id="tblSolicitudes" class="table align-items-center mb-0" name="tblSolicitudes" style="width:100%">
-                            <!--<table class="tablesorter text-center" id="tblSolicitudes" name="tblSolicitudes">-->
-                            <!--<table class="table table-striped table-hover table-bordered text-center" id="tblSolicitudes" name="tblSolicitudes">-->
-                            </table>
-                        </div>
-                    </div>
-                </div>
-              </div>
+    <div class="card shadow-lg mx-4 card-profile-bottom">
+      <div class="card-body p-3">
+        <div class="row gx-4">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="<!--{$APP_IMG}-->people/user.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                <!--{$username}-->
+              </h5>
+              <p class="mb-0 font-weight-bold text-sm">
+                <!--{$rol}-->
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0">
+              <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
+                    <i class="ni ni-favourite-28"></i>
+                    <span class="ms-2">PoliMedic</span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-
-        <div id="modal-detalleSolicitud" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-          <div class="modal-dialog  modal-lg">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h3 style="display:block;margin:auto;">Detalles del miembro</h3>
-                      </div>
-                      <div class="modal-body">
-                          <div id="divTblDetalleSolicitud" class="form-group">
-                              <div class="table-responsive">
-                                  <table class="table table-striped table-bordered text-center" id="tblDetalleSolicitud" name="tblDetalleSolicitud">
-                                  </table>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="modal-footer">
-                          <button id="btnModalCerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
       </div>
-
-      <div id="modal-agregar" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog  modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 style="display:block;margin:auto;">Crear Miembro</h3>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formAgregar" name="formAgregar" method="POST">
-                          <div class="row">
-                            <div class="col-6">
-                                <label for="txtNombre">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico del usuario">
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Tipo de documento: <span style="color: red">*</span></label>
-                                <select class="form-control" name="identification_type">
-                                    <option value="Cedula de ciudadanía">Cedula de ciudadanía</option>
-                                    <option value="Cedula de extanjería">Cedula de extanjería</option>
-                                    <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                                    <option value="NUIP">NUIP</option>
-                                    <option value="Pasaporte">Pasaporte</option>
-                                    <option value="Permiso especial de Permanencia">Permiso especial de Permanencia</option>
-                                  </select>                              
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Número de documento: <span style="color: red">*</span></label>
-                                <input class="form-control" type="number" name="identification_number" placeholder="Digita tu número de documento" />                
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Nombre(s): <span style="color: red">*</span></label>
-                                <input class="form-control" type="text" name="firstname" placeholder="Escribe tu nombre" />        
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Apellidos(s): <span style="color: red">*</span></label>
-                                <input class="form-control" type="text" name="lastname" placeholder="Escribe tu apellido" />        
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Genero: <span style="color: red">*</span></label>
-                                <select class="form-control" name="gender">
-                                    <option value="Femenino">Femenino</option>
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="No Binario">No Binario</option>
-                                  </select>          
-                            </div>
-                            <div class="col-6">
-                                <label class="fieldlabels">Fecha de nacimiento: <span style="color: red">*</span></label>
-                                <input class="form-control" type="date" name="birthdate"  />
-                            </div>
-                          </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btnModalAdd" type="button" class="btn btn-success" >Crear</button>
-                        <button id="btnModalClose" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-
-
     </div>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="d-flex align-items-center">
+                <p class="mb-0">Editar Perfil</p>
+                <button class="btn btn-primary btn-sm ms-auto">Personalización</button>
+              </div>
+            </div>
+            <input type="hidden" name="hidIdMember" id="hidIdMember" value="<!--{$id}-->" />
+            <div class="card-body">
+              <p class="text-uppercase text-sm">Información de Usuario</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Nombre(s)</label>
+                    <input class="form-control" type="text" name="firstname" id="firstname" value="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Apellido(s)</label>
+                    <input class="form-control" type="text" name="lastname" id="lastname" value="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Correo Electrónico</label>
+                    <input class="form-control" type="email" name="email" id="email" value="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Genero</label>
+                    <input class="form-control" type="text" name="gender" id="gender" value="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Tipo de documento</label>
+                    <input class="form-control" type="text" name="identification_type" id="identification_type" value="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Número de documento</label>
+                    <input class="form-control" type="text" name="identification_number" id="identification_number" value="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Fecha de Nacimiento</label>
+                    <input class="form-control" type="date" name="birthdate" id="birthdate" value="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Rol dentro de la familia</label>
+                    <input class="form-control" type="text" name="type" id="type" disabled="true" value="">
+                  </div>
+                </div>
+              </div>
+              <hr class="horizontal dark">
+              <p class="text-uppercase text-sm">Información de inicio de Sesión</p>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Usuario</label>
+                    <input class="form-control" type="text" name="user" id="user" disabled="true" value="">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Cambiar contraseña</label>
+                    <input class="form-control" type="password" placeholder="Escribe aquí tu nueva contraseña">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <button class="btn btn-primary btn-sm ms-auto d-none">Cambiar Contraseña</button>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Fecha de creación</label>
+                    <input class="form-control" type="date" name="creation_date" id="creation_date" disabled="true" value=""a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Fecha de modificación</label>
+                    <input class="form-control" type="date" name="modification_date" id="modification_date" disabled="true" value="">
+                  </div>
+                </div>
+              </div>
+              <hr class="horizontal dark">
+              <p class="text-uppercase text-sm">Nucleo Familiar</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="example-text-input" class="form-control-label">Nucleo Familiar</label>
+                    <input class="form-control" type="text" name="family_core" id="family_core" disabled="true" value="">
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-profile">
+            <img src="https://www.poli.edu.co/sites/default/files/styles/1220x400/public/genericobogota.jpg?itok=sNhq_0-y" alt="Image placeholder" class="card-img-top">
+            <div class="row justify-content-center">
+              <div class="col-4 col-lg-4 order-lg-2">
+                <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
+                  <a href="javascript:;">
+                    <img src="<!--{$APP_IMG}-->people/user.jpg" class="rounded-circle img-fluid border border-2 border-white">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              
+              <div class="text-center mt-4">
+                <h5>
+                  <span id="name"></span><span class="font-weight-light" id="edad">, </span>
+                </h5>
+                <div class="h6 font-weight-300">
+                  <i class="ni location_pin mr-2"></i><!--{$rol}-->
+                </div>
+                <div class="h6 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>Desde el <span id="cd"></span>
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i>PoliMedic
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">

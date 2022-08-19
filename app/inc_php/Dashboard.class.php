@@ -42,7 +42,7 @@
                 CASE 
                     WHEN u.role_id = 1 THEN 'Administrador'
                     WHEN u.role_id = 2 THEN 'Responsable de Familia'
-                    WHEN u.role_id = 3 THEN 'Usuario'
+                    WHEN u.role_id = 3 THEN 'Miembro de Familia'
                     ELSE 'Sin Rol'
                 END AS 'ROL',
                 f.name as 'NUCLEO FAMILIAR',
@@ -432,7 +432,972 @@
             return implode($pass); 
         }
 
+        public function tblHealth_condition_admin()
+        {
+                
+                try {
+                    
+                    $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    h.appoinment_date as 'Fecha de registro', 
+                    l.lab_type as 'Examen de Laboratorio', 
+                    c.common_disease as 'Enfermedad Común',
+                    CASE 
+                        when h.particular_desease is null THEN 'No'
+                        else h.particular_desease
+                    END as 'Enfermedad Particular'
+                    from health_condition h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join lab_type l 
+                    on h.lab_type = l.id 
+                    inner join common_disease c 
+                    on h.common_disease = c.id";
+                    $query = $this->dbh->prepare($sql);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+                
+        }
 
+        public function tblHealth_condition_admin_detail($id)
+        {
+                
+                try {
+                    
+                    $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    h.appoinment_date as 'Fecha de registro', 
+                    l.lab_type as 'Examen de Laboratorio', 
+                    h.lab_file_path as 'Archivo de Laboratorio',
+                    c.common_disease as 'Enfermedad Común',
+                    CASE 
+                        when h.particular_desease is null THEN 'No'
+                        else h.particular_desease
+                    END as 'Enfermedad Particular',
+                    f.name as 'Nucleo Familiar',
+                    CASE
+                        when h.id_owner is null THEN 'No'
+                        else 'Si'
+                    END as '¿Lo registro el responsable de la familia?'
+                    from health_condition h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join lab_type l 
+                    on h.lab_type = l.id 
+                    inner join common_disease c 
+                    on h.common_disease = c.id
+                    inner join family_core f
+                    on h.family_core = f.id
+                    where h.id = ?";
+                    $query = $this->dbh->prepare($sql);
+                    $query->bindParam(1, $id);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+                
+        }
+
+        public function tblHealth_condition_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                l.lab_type as 'Examen de Laboratorio', 
+                c.common_disease as 'Enfermedad Común',
+                CASE 
+                    when h.particular_desease is null THEN 'No'
+                    else h.particular_desease
+                END as 'Enfermedad Particular'
+                from health_condition h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join lab_type l 
+                on h.lab_type = l.id 
+                inner join common_disease c 
+                on h.common_disease = c.id
+                where h.id_user = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function tblHealth_condition_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                l.lab_type as 'Examen de Laboratorio', 
+                c.common_disease as 'Enfermedad Común',
+                CASE 
+                    when h.particular_desease is null THEN 'No'
+                    else h.particular_desease
+                END as 'Enfermedad Particular'
+                from health_condition h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join lab_type l 
+                on h.lab_type = l.id 
+                inner join common_disease c 
+                on h.common_disease = c.id
+                where h.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function lab_type()
+        {
+            try {
+                    
+                $sql = "SELECT * from lab_type";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function common_disease()
+        {
+            try {
+                    
+                $sql = "SELECT * from common_disease";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addHealthCondition($id, $lab_type, $extension, $family_core, $common_disease, $particular_desease)
+        {
+            try {
+
+                $path = "../app/uploaded_files/lab_exam/";
+
+                $date = date("Y-m-d");
+                $sql = "INSERT INTO health_condition (id_user, appoinment_date, lab_type, lab_file_path, family_core, common_disease, particular_desease) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $date);
+                $query->bindParam(3, $lab_type);
+                $query->bindParam(4, $path);
+                $query->bindParam(5, $family_core);
+                $query->bindParam(6, $common_disease);
+                $query->bindParam(7, $particular_desease);
+                $query->execute();
+
+                if($query->rowCount() > 0){
+
+                    $sqlSelect = "SELECT MAX(id) from health_condition";
+                    $querySelect = $this->dbh->prepare($sqlSelect);
+                    $querySelect->execute();
+                    $result = $querySelect->fetchAll(PDO::FETCH_ASSOC);
+                    $max = $result[0]['MAX(id)'];
+
+                    $lab_file_path = "../app/uploaded_files/lab_exam/".$max.".".$extension;
+                    $sqlUpdate = "UPDATE health_condition SET lab_file_path = :lab_file_path WHERE id = :id";
+                    $queryUpdate = $this->dbh->prepare($sqlUpdate);
+                    $params = array(
+                        ':lab_file_path' => $lab_file_path,
+                        ':id' => $max
+                    );
+                    $queryUpdate->execute($params);
+                    if($queryUpdate->rowCount() == 1)
+                    {
+                        return $max;
+                    }
+                    else
+                    {
+                        return $max;
+                    }
+                }else{
+                    return false;
+                }
+
+                
+                
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addHealthConditionMember($id, $idMember, $lab_type, $extension, $family_core, $common_disease, $particular_desease)
+        {
+            try {
+
+                $path = "../app/uploaded_files/lab_exam/";
+                
+                $date = date("Y-m-d");
+                $sql = "INSERT INTO health_condition (id_user, appoinment_date, lab_type, lab_file_path, id_owner, family_core, common_disease, particular_desease) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $date);
+                $query->bindParam(3, $lab_type);
+                $query->bindParam(4, $path);
+                $query->bindParam(5, $id);
+                $query->bindParam(6, $family_core);
+                $query->bindParam(7, $common_disease);
+                $query->bindParam(8, $particular_desease);
+                $query->execute();
+
+                if($query->rowCount() > 0){
+
+                    $sqlSelect = "SELECT MAX(id) from health_condition";
+                    $querySelect = $this->dbh->prepare($sqlSelect);
+                    $querySelect->execute();
+                    $result = $querySelect->fetchAll(PDO::FETCH_ASSOC);
+                    $max = $result[0]['MAX(id)'];
+
+                    $lab_file_path = "../app/uploaded_files/lab_exam/".$max.".".$extension;
+                    $sqlUpdate = "UPDATE health_condition SET lab_file_path = :lab_file_path WHERE id = :id";
+                    $queryUpdate = $this->dbh->prepare($sqlUpdate);
+                    $params = array(
+                        ':lab_file_path' => $lab_file_path,
+                        ':id' => $max
+                    );
+                    $queryUpdate->execute($params);
+                    if($queryUpdate->rowCount() == 1)
+                    {
+                        return $max;
+                    }
+                    else
+                    {
+                        return $max;
+                    }
+                }else{
+                    return $query;
+                }
+
+                
+                
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+
+        public function listMembers($id, $idOwner)
+        {
+            try {
+                    
+                $sql = "SELECT id, fullname from user where familycore_id = ? and id != ?";
+                $stmt = $this->dbh->prepare($sql);
+                $stmt->bindParam(1, $id);
+                $stmt->bindParam(2, $idOwner);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function tblHealth_indicator_admin(){
+            try {
+                $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    h.appoinment_date as 'Fecha de registro', 
+                    w.workout_name as 'Ejercicio',
+                    h.heart_rate as 'Frecuencia cardiaca',
+                    h.blood_pressure as 'Presion arterial'
+                    from health_indicator h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join workout w
+                    on h.workout = w.id";
+                    $query = $this->dbh->prepare($sql);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+        }
+
+
+        public function tblHealth_indicator_admin_detail($id)
+        {
+                
+                try {
+                    
+                    $sql = "SELECT h.id as 'ID', 
+                    u.fullname as 'Nombre Completo', 
+                    u.birthdate as 'Fecha de nacimiento',
+                    h.appoinment_date as 'Fecha de registro', 
+                    w.workout_name as 'Ejercicio',
+                    h.heart_rate as 'Frecuencia cardiaca',
+                    h.blood_pressure as 'Presion arterial',
+                    h.distance_in_km as 'Distancia en Km',
+                    h.burned_calories as 'Calorias quemadas',
+                    h.weight_in_kg as 'Peso en Kg',
+                    h.height_in_cm as 'Altura en cm',
+                    h.blood_oxygen_saturation as 'Saturacion de oxigeno',
+                    h.vaccines as 'Vacunas',
+                    f.name as 'Nucleo Familiar',
+                    CASE
+                        when h.id_owner is null THEN 'No'
+                        else 'Si'
+                    END as '¿Lo registro el responsable de la familia?'
+                    from health_indicator h 
+                    inner join user u 
+                    on h.id_user = u.id 
+                    inner join workout w
+                    on h.workout = w.id
+                    inner join family_core f
+                    on h.family_core = f.id
+                    where h.id = ?";
+                    $query = $this->dbh->prepare($sql);
+                    $query->bindParam(1, $id);
+                    $query->execute();
+                    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+                    return $result;
+                        
+                }catch(PDOException $e){
+                    
+                    return false;
+                    
+                }        
+                
+        }
+
+        public function tblHealth_indicator_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                w.workout_name as 'Ejercicio',
+                h.heart_rate as 'Frecuencia cardiaca',
+                h.blood_pressure as 'Presion arterial'
+                from health_indicator h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join workout w
+                on h.workout = w.id
+                where h.id_user = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function tblHealth_indicator_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT h.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                h.appoinment_date as 'Fecha de registro', 
+                w.workout_name as 'Ejercicio',
+                h.heart_rate as 'Frecuencia cardiaca',
+                h.blood_pressure as 'Presion arterial'
+                from health_indicator h 
+                inner join user u 
+                on h.id_user = u.id 
+                inner join workout w
+                on h.workout = w.id
+                where h.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function listWorkouts()
+        {
+            try {
+                    
+                $sql = "SELECT id, workout_name from workout";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addHealthIndicator($id,$familycore_id,$workout,$heart_rate,$blood_pressure,$distance_in_km,$burned_calories,$weight_in_kg,$height_in_cm,$blood_oxygen_saturation,$vaccines)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO health_indicator (id_user, appoinment_date, workout, heart_rate, blood_pressure, distance_in_km, burned_calories, weight_in_kg, height_in_cm, blood_oxygen_saturation, vaccines,family_core) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $workout);
+                $query->bindParam(4, $heart_rate);
+                $query->bindParam(5, $blood_pressure);
+                $query->bindParam(6, $distance_in_km);
+                $query->bindParam(7, $burned_calories);
+                $query->bindParam(8, $weight_in_kg);
+                $query->bindParam(9, $height_in_cm);
+                $query->bindParam(10, $blood_oxygen_saturation);
+                $query->bindParam(11, $vaccines);
+                $query->bindParam(12, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function addHealthIndicatorMember($id,$idMember,$familycore_id,$workout,$heart_rate,$blood_pressure,$distance_in_km,$burned_calories,$weight_in_kg,$height_in_cm,$blood_oxygen_saturation,$vaccines)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO health_indicator (id_user, appoinment_date, workout, heart_rate, blood_pressure, distance_in_km, burned_calories, weight_in_kg, height_in_cm, blood_oxygen_saturation, vaccines,id_owner,family_core) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $workout);
+                $query->bindParam(4, $heart_rate);
+                $query->bindParam(5, $blood_pressure);
+                $query->bindParam(6, $distance_in_km);
+                $query->bindParam(7, $burned_calories);
+                $query->bindParam(8, $weight_in_kg);
+                $query->bindParam(9, $height_in_cm);
+                $query->bindParam(10, $blood_oxygen_saturation);
+                $query->bindParam(11, $vaccines);
+                $query->bindParam(12, $id);
+                $query->bindParam(13, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblMedicalCare_info_admin()
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.medical_appointment as 'Fecha de atención'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblMedicalCare_info_admin_detail($id)
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.observation as 'Observación',
+                m.medical_appointment as 'Fecha de atención',
+                f.name as 'Nucleo Familiar',
+                CASE
+                    when m.id_owner is null THEN 'No'
+                    else 'Si'
+                    END as '¿Lo registro el responsable de la familia?'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id
+                inner join family_core f
+                on m.family_core = f.id
+                where m.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblMedicalCare_info_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.medical_appointment as 'Fecha de atención'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id
+                where m.user_id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblMedicalCare_info_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT m.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                m.appoinment_date as 'Fecha de registro',
+                p.physician_type as 'Tipo de atención',
+                m.physician_name as 'Nombre del médico',
+                m.medical_appointment as 'Fecha de atención'
+                from medical_care_info m 
+                inner join user u 
+                on m.id_user = u.id
+                inner join physician_type p
+                on m.physician_type = p.id
+                where m.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function addMedicalCareInfo($id,$familycore_id,$physician_type,$medical_appointment,$physician_name,$observation)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO medical_care_info (id_user,family_core,appoinment_date,physician_type,medical_appointment,physician_name,observation) VALUES (?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $familycore_id);
+                $query->bindParam(3, $appoinment_date);
+                $query->bindParam(4, $physician_type);
+                $query->bindParam(5, $medical_appointment);
+                $query->bindParam(6, $physician_name);
+                $query->bindParam(7, $observation);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addMedicalCareInfoMember($id,$idMember,$familycore_id,$physician_type,$medical_appointment,$physician_name,$observation)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO medical_care_info (id_user,appoinment_date,physician_type,medical_appointment,physician_name,observation,id_owner,family_core) VALUES (?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $physician_type);
+                $query->bindParam(4, $medical_appointment);
+                $query->bindParam(5, $physician_name);
+                $query->bindParam(6, $observation);
+                $query->bindParam(7, $id);
+                $query->bindParam(8, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function listPhysician_type()
+        {
+            try {
+                    
+                $sql = "SELECT * FROM physician_type";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function tblCondition_monitoring_admin()
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.issue_date as 'Fecha de condición'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join condition_type t
+                on c.condition_type = t.id";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                    
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+        
+
+        public function tblCondition_monitoring_admin_detail($id)
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.treatment as 'Tratamiento',
+                c.evolution as 'Evolución',
+                c.issue_date as 'Fecha de condición',
+                f.name as 'Nucleo Familiar'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join family_core f
+                on c.family_core = f.id
+                inner join condition_type t
+                on c.condition_type = t.id
+                where c.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblCondition_monitoring_member($id)
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.issue_date as 'Fecha de condición'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join condition_type t
+                on c.condition_type = t.id
+                where c.id_user = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function tblCondition_monitoring_owner($id)
+        {
+            try {
+                    
+                $sql = "SELECT c.id as 'ID', 
+                u.fullname as 'Nombre Completo', 
+                c.appoinment_date as 'Fecha de registro',
+                t.condition_type as 'Tipo de condición',
+                c.diagnostic as 'Diagnostico',
+                c.issue_date as 'Fecha de condición'
+                from condition_monitoring c 
+                inner join user u 
+                on c.id_user = u.id
+                inner join condition_type t
+                on c.condition_type = t.id
+                where c.family_core = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+
+        }
+
+        public function addConditionMonitoring($id,$familycore_id,$condition_type,$issue_date,$diagnostic,$treatment,$evolution)
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO condition_monitoring (id_user,appoinment_date,condition_type,issue_date,diagnostic,treatment,evolution,family_core) VALUES (?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $condition_type);
+                $query->bindParam(4, $issue_date);
+                $query->bindParam(5, $diagnostic);
+                $query->bindParam(6, $treatment);
+                $query->bindParam(7, $evolution);
+                $query->bindParam(8, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function addConditionMonitoringMember($id,$idMember, $familycore_id,$condition_type,$issue_date,$diagnostic,$treatment,$evolution)       
+        {
+            try {
+                $appoinment_date = date('Y-m-d');
+                $sql = "INSERT INTO condition_monitoring (id_user,appoinment_date,condition_type,issue_date,diagnostic,treatment,evolution,id_owner,family_core) VALUES (?,?,?,?,?,?,?,?,?)";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $idMember);
+                $query->bindParam(2, $appoinment_date);
+                $query->bindParam(3, $condition_type);
+                $query->bindParam(4, $issue_date);
+                $query->bindParam(5, $diagnostic);
+                $query->bindParam(6, $treatment);
+                $query->bindParam(7, $evolution);
+                $query->bindParam(8, $id);
+                $query->bindParam(9, $familycore_id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function listConditionType()
+        {
+            try {
+                    
+                $sql = "SELECT * FROM condition_type";
+                $query = $this->dbh->prepare($sql);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
+
+        public function loadUser($id)
+        {
+            try {
+                    
+                $sql = "SELECT 
+                u.email, 
+                u.firstname, 
+                u.lastname, 
+                u.gender, 
+                u.birthdate,
+                u.type,
+                u.identification_type,
+                u.identification_number,
+                u.creation_date,
+                u.modification_date,
+                u.user,
+                f.name
+                FROM user u
+                INNER JOIN family_core f
+                ON u.familycore_id = f.id
+                WHERE u.id = ?";
+                $query = $this->dbh->prepare($sql);
+                $query->bindParam(1, $id);
+                $query->execute();
+                $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $result;
+                        
+            }catch(PDOException $e){
+                
+                return false;
+                
+            } 
+        }
 
         
         // public function editar_users($cedula,$nombre,$apellido,$correo,$pass)

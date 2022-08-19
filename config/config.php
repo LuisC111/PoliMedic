@@ -41,6 +41,10 @@ if (!defined('PHPMAILER_DIR')) {
     define('PHPMAILER_DIR', $RUTA_PROYECTO.'/include/inc_php/PHPMailer_v5.2.23/');
 }
 
+if(!defined('FPDF_DIR')) {
+    define('FPDF_DIR',      $RUTA_PROYECTO.'/include/inc_php/fpdf/');
+}
+
 if (!defined('SMARTY_DIR')) {
     define('SMARTY_DIR',        $RUTA_PROYECTO . '/include/inc_php/smarty-4.1.1/libs/');
     define('TEMPLATES_DIR',     $RUTA_PROYECTO . '/app/templates/');
