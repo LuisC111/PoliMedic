@@ -422,7 +422,13 @@ if($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' && $_SERVER['REQUEST_ME
 
         break;
 
-       
+        case 'changePass':
+
+            $changePass = Dashboard::login();
+            $changePass = $changePass->changePass($_POST['password'],$id);
+            $combos = $changePass;
+        
+        break;
 
     }
 
