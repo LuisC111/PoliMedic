@@ -48,6 +48,7 @@ $smarty->assign('roles'                 , $_SESSION['roles']);
 $smarty->assign('user_core'             , $_SESSION['user_core']);
 $smarty->assign('count_core'            , $_SESSION['count_core']);
 $smarty->assign('user_role'             , $_SESSION['user_role']);
+$smarty->assign('temporal_password'     , $_SESSION['temporal_password']);
 
 $smarty->display('dashboard/base_dashboard.tpl');
 $smarty->display('dashboard/dashboard.tpl');

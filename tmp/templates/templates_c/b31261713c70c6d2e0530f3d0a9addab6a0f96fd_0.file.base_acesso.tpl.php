@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-08-13 19:07:57
+/* Smarty version 4.1.1, created on 2022-08-19 02:16:34
   from 'C:\laragon\www\PoliMedic\app\templates\acceso\base_acesso.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_62f7f68debc477_80227391',
+  'unifunc' => 'content_62fef282bcf050_58775590',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b31261713c70c6d2e0530f3d0a9addab6a0f96fd' => 
     array (
       0 => 'C:\\laragon\\www\\PoliMedic\\app\\templates\\acceso\\base_acesso.tpl',
-      1 => 1660417664,
+      1 => 1660703558,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62f7f68debc477_80227391 (Smarty_Internal_Template $_smarty_tpl) {
+function content_62fef282bcf050_58775590 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 

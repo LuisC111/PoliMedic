@@ -1,3 +1,4 @@
+<script src="<!--{$APP_JS}-->dashboard/dashboard.js?v=<!--{$date}-->"></script>
 
 <body class="g-sidenav-show bg-gray-100">
   <div class="min-height-300 bg-primary position-absolute w-100"></div>
@@ -211,6 +212,9 @@
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">nucleos familiares</p>
                     <h5 class="font-weight-bolder">
                       <!--{$families}-->
+                      <input type="hidden" name="hidPassword" id="hidPassword" value="" />
+                      <input type="hidden" name="hidTemporal" id="hidTemporal" value="<!--{$temporal_password}-->" />
+                      <input type="hidden" name="hidIdMember" id="hidIdMember" value="<!--{$id}-->" />
                     </h5>
                   </div>
                 </div>
