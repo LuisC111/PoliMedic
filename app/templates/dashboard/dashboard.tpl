@@ -56,6 +56,7 @@
           </a>
         </li>
         <!--{/if}-->
+        <!--{if $role eq '2' or $role eq '3'}-->
         <li class="nav-item">
           <a class="nav-link " href="./health_condition">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -88,6 +89,7 @@
             <span class="nav-link-text ms-1">Seguimiento de condiciones</span>
           </a>
         </li>
+        <!--{/if}-->
          <!--
 <li class="nav-item">
           <a class="nav-link " href="./reports">

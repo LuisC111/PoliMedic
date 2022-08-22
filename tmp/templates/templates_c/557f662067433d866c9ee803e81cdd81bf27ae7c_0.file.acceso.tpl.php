@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.1, created on 2022-08-12 02:42:27
+/* Smarty version 4.1.1, created on 2022-08-22 00:16:57
   from 'C:\laragon\www\PoliMedic\app\templates\acceso\acceso.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.1',
-  'unifunc' => 'content_62f5be1359f8a9_44622267',
+  'unifunc' => 'content_6302caf93ef5e9_98790816',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '557f662067433d866c9ee803e81cdd81bf27ae7c' => 
     array (
       0 => 'C:\\laragon\\www\\PoliMedic\\app\\templates\\acceso\\acceso.tpl',
-      1 => 1660272015,
+      1 => 1661127416,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_62f5be1359f8a9_44622267 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6302caf93ef5e9_98790816 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="es">
 
@@ -93,8 +93,7 @@ templatemo-medic-care.css?v=<?php echo $_smarty_tpl->tpl_vars['date']->value;?>
 
                 <div class="col-lg-4 col-md-5 col-12 mx-auto">
                     <div class="featured-circle bg-white shadow-lg d-flex justify-content-center align-items-center">
-                        <p class="featured-text"><span class="featured-number">#1</span> Top<br> en control de turnos
-                            médicos.</p>
+                        <p class="featured-text"><span class="featured-number">#1</span> Top<br> gestionando tu salud.</p>
                     </div>
                 </div>
 

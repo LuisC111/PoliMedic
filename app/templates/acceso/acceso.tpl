@@ -61,8 +61,7 @@
 
                 <div class="col-lg-4 col-md-5 col-12 mx-auto">
                     <div class="featured-circle bg-white shadow-lg d-flex justify-content-center align-items-center">
-                        <p class="featured-text"><span class="featured-number">#1</span> Top<br> en control de turnos
-                            médicos.</p>
+                        <p class="featured-text"><span class="featured-number">#1</span> Top<br> gestionando tu salud.</p>
                     </div>
                 </div>
 
